@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Catálogo Portal | Mobiliário para eventos</title>
+<meta name="description" content="Catálogo digital Portal do Oriente: mesas, cadeiras, sofás, poltronas, bares, pufes e acessórios para locação em eventos. Busque por nome, código, cor ou medida.">
+<meta name="theme-color" content="#826F51">
+<meta property="og:title" content="Catálogo Portal | Mobiliário para eventos">
+<meta property="og:description" content="Mais de 270 peças para locação, com busca, categorias e medidas.">
+<meta property="og:image" content="img/hero.webp">
+<link rel="icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --portal:#826F51;      /* marrom da marca */
+  --portal-dk:#5F5039;
+  --teak:#33291E;        /* texto */
+  --teak-2:#6B5F52;      /* texto secundário */
+  --stone:#E8E6E2;       /* painéis cinza do catálogo */
+  --stone-2:#F4F3F1;
+  --line:#D9D5CE;
+  --white:#FFFFFF;
+  --celadon:#4F7468;     /* acento: foco, seleção */
+  --celadon-lt:#DCE7E2;
+  --radius-s:4px; --radius-m:10px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --max:1320px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:150px}
+body{margin:0;font-family:"Jost",system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:400;color:var(--teak);background:var(--white);font-size:16px;line-height:1.5}
+img{display:block;max-width:100%}
+button,input{font:inherit;color:inherit}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--celadon);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+
+/* ---------- topo ---------- */
+.hero{position:relative;background:var(--portal);color:#fff;overflow:hidden}
+.hero__img{position:absolute;inset:0;background:url(img/hero.webp) center 45%/cover no-repeat}
+.hero__img::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(74,61,43,.92) 0%,rgba(95,80,57,.78) 45%,rgba(95,80,57,.25) 100%)}
+@media (max-width:760px){.hero__img::after{background:rgba(80,66,47,.8)}}
+.hero__inner{position:relative;display:grid;margin-top:env(safe-area-inset-top);gap:clamp(14px,2.2vw,24px);padding-top:clamp(20px,4vw,44px);padding-bottom:clamp(22px,4vw,44px)}
+.brand{display:flex;align-items:center;gap:18px}
+.brand img{width:clamp(96px,12vw,136px);height:auto}
+.brand__txt{border-left:1px solid rgba(255,255,255,.45);padding-left:18px;font-weight:300;letter-spacing:.06em;line-height:1.3;font-size:15px}
+.hero h1{margin:0;font-weight:300;font-size:clamp(28px,4.4vw,50px);line-height:1.08;letter-spacing:-.01em;max-width:17ch}
+.hero p{margin:0;max-width:52ch;font-weight:300;font-size:clamp(15px,1.6vw,18px);opacity:.92}
+
+/* ---------- busca ---------- */
+.bar{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar__in{display:flex;gap:12px;align-items:center;padding-top:12px;padding-bottom:12px}
+.search{position:relative;flex:1;min-width:0}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:20px;height:20px;color:var(--teak-2);pointer-events:none}
+.search input{width:100%;height:50px;border:1px solid var(--line);border-radius:var(--radius-m);padding:0 44px 0 44px;font-size:17px;background:var(--stone-2);transition:border-color .15s,background .15s}
+.search input:focus{outline:none;border-color:var(--celadon);background:#fff;box-shadow:0 0 0 3px var(--celadon-lt)}
+.search input::placeholder{color:#8E847A}
+.search input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+.search__clear{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:38px;height:38px;border:0;background:none;border-radius:50%;cursor:pointer;color:var(--teak-2);display:none}
+.search__clear:hover{background:var(--stone)}
+.search.has-v .search__clear{display:grid;place-items:center}
+.kbd{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:12px;color:#8E847A;border:1px solid var(--line);border-radius:4px;padding:0 6px;line-height:20px}
+.search.has-v .kbd,.search input:focus~.kbd{display:none}
+@media (hover:none){.kbd{display:none}}
+.sel-btn{flex:none;height:50px;border:1px solid var(--line);background:#fff;border-radius:var(--radius-m);padding:0 16px;display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:500}
+.sel-btn:hover{border-color:var(--portal)}
+.sel-btn .n{min-width:22px;height:22px;border-radius:11px;background:var(--stone);display:grid;place-items:center;font-size:13px;padding:0 6px}
+.sel-btn.on .n{background:var(--celadon);color:#fff}
+@media (max-width:560px){.sel-btn .t{display:none}.sel-btn{padding:0 13px}}
+
+/* sugestões */
+.sugg{position:absolute;left:0;right:0;top:calc(100% + 6px);background:#fff;border:1px solid var(--line);border-radius:var(--radius-m);box-shadow:0 14px 40px rgba(51,41,30,.16);overflow:hidden;display:none;max-height:min(70vh,520px);overflow-y:auto}
+.sugg.open{display:block}
+.sugg__h{font-size:13px;color:var(--teak-2);padding:10px 14px 4px}
+.sugg__i{display:flex;align-items:center;gap:12px;padding:8px 14px;cursor:pointer;text-decoration:none}
+.sugg__i img{width:44px;height:44px;object-fit:contain;background:var(--stone-2);border-radius:var(--radius-s);flex:none}
+.sugg__i .nm{font-weight:500;line-height:1.25}
+.sugg__i .mt{font-size:13px;color:var(--teak-2)}
+.sugg__i[aria-selected="true"],.sugg__i:hover{background:var(--celadon-lt)}
+.sugg mark,.card mark{background:none;color:var(--celadon);font-weight:600}
+.sugg__all{display:block;width:100%;text-align:left;border:0;border-top:1px solid var(--line);background:var(--stone-2);padding:12px 14px;cursor:pointer;font-weight:500}
+.sugg__none{padding:14px;color:var(--teak-2)}
+
+/* ---------- categorias (fotos de ambiente) ---------- */
+.cats{padding-top:28px}
+.cats__row{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:10px;scrollbar-width:thin}
+.cat{flex:none;scroll-snap-align:start;width:150px;border:0;padding:0;background:none;cursor:pointer;text-align:left;border-radius:var(--radius-m)}
+.cat__ph{position:relative;aspect-ratio:4/5;border-radius:var(--radius-m);overflow:hidden;background:var(--stone)}
+.cat__ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.cat:hover .cat__ph img{transform:scale(1.04)}
+.cat__ph::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 0 var(--celadon);transition:box-shadow .15s}
+.cat[aria-pressed="true"] .cat__ph::after{box-shadow:inset 0 0 0 3px var(--celadon)}
+.cat__nm{display:block;margin-top:8px;font-weight:500;line-height:1.2}
+.cat__ct{display:block;font-size:13px;color:var(--teak-2)}
+.cat--all .cat__ph{background:var(--portal);display:grid;place-items:center}
+.cat--all .cat__ph img{width:58%;height:auto;object-fit:contain}
+@media (max-width:560px){.cat{width:118px}}
+
+/* ---------- filtros ---------- */
+.filters{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding:18px 0 6px;border-bottom:1px solid var(--line)}
+.filters__lbl{font-size:14px;color:var(--teak-2)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;font-size:14px;cursor:pointer;line-height:1.2}
+.chip:hover{border-color:var(--portal)}
+.chip[aria-pressed="true"]{background:var(--teak);border-color:var(--teak);color:#fff}
+.status{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px;padding:18px 0 4px}
+.status__n{font-size:15px;color:var(--teak-2)}
+.status__n b{color:var(--teak);font-weight:600}
+.reset{border:0;background:none;color:var(--celadon);font-weight:500;cursor:pointer;padding:4px 0;text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- grade ---------- */
+.sec{padding-top:26px}
+.sec__h{display:flex;align-items:baseline;gap:12px;margin:0 0 14px;font-weight:300;font-size:clamp(24px,3vw,34px);letter-spacing:-.005em}
+.sec__h small{font-size:15px;color:var(--teak-2);font-weight:400}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:clamp(10px,1.6vw,18px)}
+@media (max-width:560px){.grid{grid-template-columns:repeat(2,1fr)}}
+.card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden;cursor:pointer;text-align:left;padding:0;transition:border-color .15s}
+.card:hover{border-color:var(--portal)}
+.card__ph{aspect-ratio:1;background:var(--stone-2)}
+.card__ph img{width:100%;height:100%;object-fit:contain}
+.card__b{padding:10px 12px 12px;display:grid;gap:2px;flex:1;align-content:start}
+.card__nm{font-weight:500;line-height:1.25;font-size:15px}
+.card__mt{font-size:13px;color:var(--teak-2);line-height:1.35}
+.card__ln{font-size:12px;color:var(--portal-dk);margin-top:4px}
+.pin{position:absolute;top:8px;right:8px;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.92);display:grid;place-items:center;cursor:pointer;color:var(--teak-2)}
+.pin:hover{border-color:var(--celadon);color:var(--celadon)}
+.pin[aria-pressed="true"]{background:var(--celadon);border-color:var(--celadon);color:#fff}
+.pin svg{width:18px;height:18px}
+.empty{padding:56px 0;text-align:center;max-width:46ch;margin:0 auto}
+.empty h2{font-weight:300;font-size:28px;margin:0 0 8px}
+.empty p{color:var(--teak-2);margin:0 0 16px}
+.empty .chips{justify-content:center}
+
+/* ---------- personalizados / rodapé ---------- */
+.custom{margin-top:64px;background:var(--stone);}
+.custom__in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(20px,4vw,56px);align-items:center;padding-top:clamp(28px,5vw,56px);padding-bottom:clamp(28px,5vw,56px)}
+.custom img{border-radius:var(--radius-m);width:100%;height:auto}
+.custom h2{font-weight:300;font-size:clamp(26px,3.4vw,40px);margin:0 0 10px;line-height:1.1}
+.custom p{margin:0;max-width:44ch;color:var(--teak-2);font-size:17px}
+@media (max-width:760px){.custom__in{grid-template-columns:1fr}}
+footer{background:var(--portal);color:#fff}
+footer .wrap{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between;padding-top:28px;padding-bottom:calc(28px + env(safe-area-inset-bottom))}
+footer img{width:110px;height:auto}
+footer p{margin:0;font-size:14px;opacity:.85;max-width:60ch}
+
+/* ---------- modal ---------- */
+dialog{border:0;padding:0;border-radius:14px;max-width:min(980px,calc(100vw - 24px));width:100%;max-height:calc(100dvh - 24px);color:var(--teak);background:#fff}
+dialog::backdrop{background:rgba(40,32,24,.55)}
+dialog[open]{animation:pop .22s var(--ease)}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+.dlg{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
+.dlg__ph{background:var(--stone-2);position:relative;min-height:280px}
+.dlg__ph img{width:100%;height:100%;object-fit:contain;max-height:calc(100dvh - 24px)}
+.dlg__b{padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:14px;overflow:auto}
+.dlg__cat{font-size:14px;color:var(--portal-dk)}
+.dlg h2{margin:0;font-weight:400;font-size:clamp(22px,2.6vw,30px);line-height:1.15}
+.specs{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;margin:4px 0 0;font-size:15px;border-top:1px solid var(--line);padding-top:14px}
+.specs dt{color:var(--teak-2)}
+.specs dd{margin:0;font-weight:500}
+.note{font-size:14px;color:var(--teak-2);margin:0}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 16px;border-radius:var(--radius-m);border:1px solid var(--line);background:#fff;cursor:pointer;font-weight:500;text-decoration:none;font-size:15px}
+.btn:hover{border-color:var(--portal)}
+.btn--pri{background:var(--teak);border-color:var(--teak);color:#fff}
+.btn--pri:hover{background:#000}
+.btn--pri.on{background:var(--celadon);border-color:var(--celadon)}
+.btn svg{width:18px;height:18px}
+.x{position:absolute;top:10px;right:10px;z-index:2;width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.92);cursor:pointer;display:grid;place-items:center;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.x svg{width:20px;height:20px}
+.nav-arr{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.92);cursor:pointer;display:grid;place-items:center;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.nav-arr.l{left:10px}.nav-arr.r{right:10px}
+.nav-arr svg{width:20px;height:20px}
+@media (max-width:760px){
+  .dlg{grid-template-columns:1fr}
+  .dlg__ph{min-height:0;aspect-ratio:1}
+  dialog{max-height:calc(100dvh - 12px);max-width:calc(100vw - 12px)}
+}
+/* página original */
+.pgv{display:flex;flex-direction:column;max-height:calc(100dvh - 24px)}
+.pgv__top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 64px 12px 18px;border-bottom:1px solid var(--line)}
+.pgv__top b{font-weight:500}
+.pgv__img{position:relative;overflow:auto;background:var(--stone-2)}
+.pgv__img img{width:100%;height:auto}
+/* seleção */
+.selv{padding:clamp(20px,3vw,32px);display:grid;gap:14px}
+.selv h2{margin:0 48px 0 0;font-weight:400;font-size:26px}
+.selv ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;max-height:52dvh;overflow:auto}
+.selv li{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:var(--radius-m);padding:8px 10px}
+.selv li img{width:52px;height:52px;object-fit:contain;background:var(--stone-2);border-radius:var(--radius-s)}
+.selv li .t{flex:1;min-width:0}
+.selv li .t b{display:block;font-weight:500;line-height:1.25}
+.selv li .t span{font-size:13px;color:var(--teak-2)}
+.selv li button{border:0;background:none;cursor:pointer;color:var(--teak-2);padding:8px;border-radius:50%}
+.selv li button:hover{background:var(--stone)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translate(-50%,20px);background:var(--teak);color:#fff;padding:10px 16px;border-radius:var(--radius-m);opacity:0;transition:.2s var(--ease);z-index:100;pointer-events:none;font-size:15px}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero__img" aria-hidden="true"></div>
+  <div class="wrap hero__inner">
+    <div class="brand">
+      <img src="img/logo.png" alt="Portal do Oriente" width="300" height="217">
+      <span class="brand__txt">Mobiliário<br>para eventos</span>
+    </div>
+    <h1>Encontre a peça certa para o seu evento</h1>
+    <p>Mesas, cadeiras, sofás, poltronas, bares e acessórios para locação. Busque pelo nome, código, cor ou medida, ou navegue pelas categorias.</p>
+  </div>
+</header>
+
+<div class="bar" role="search">
+  <div class="wrap bar__in">
+    <div class="search" id="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <label for="q" class="sr">Buscar no catálogo</label>
+      <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Busque: sofá branco, mesa redonda, KD-540" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="sugg">
+      <span class="kbd" aria-hidden="true">/</span>
+      <button class="search__clear" id="clear" type="button" aria-label="Limpar busca"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <div class="sugg" id="sugg" role="listbox" aria-label="Sugestões"></div>
+    </div>
+    <button class="sel-btn" id="selBtn" type="button" aria-label="Minha seleção">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
+      <span class="t">Minha seleção</span><span class="n" id="selN">0</span>
+    </button>
+  </div>
+</div>
+
+<main class="wrap">
+  <nav class="cats" aria-label="Categorias">
+    <div class="cats__row" id="cats"></div>
+  </nav>
+  <div class="filters" id="filters">
+    <span class="filters__lbl" id="lnLbl">Linha</span>
+    <div class="chips" id="linhas" role="group" aria-labelledby="lnLbl"></div>
+  </div>
+  <div class="status" aria-live="polite">
+    <span class="status__n" id="count"></span>
+    <button class="reset" id="reset" type="button" hidden>Limpar filtros</button>
+  </div>
+  <div id="results"></div>
+</main>
+
+<section class="custom" aria-labelledby="custH">
+  <div class="wrap custom__in">
+    <img src="img/personalizados.webp" alt="Ambiente com sofás e pufes em cores variadas" loading="lazy" width="800" height="1130">
+    <div>
+      <h2 id="custH">Móveis na cor da sua festa</h2>
+      <p>Não encontrou o tom que procura? Os móveis podem ser personalizados na cor que você preferir. Sofás forrados devem ser solicitados com 30 dias de antecedência.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <img src="img/logo.png" alt="Portal do Oriente" width="300" height="217" loading="lazy">
+    <p>Catálogo 2025. Medidas em metros, conforme informado pelo fornecedor. Fotos ilustrativas; confirme disponibilidade, cores e acabamentos no orçamento.</p>
+  </div>
+</footer>
+
+<dialog id="dlg" aria-labelledby="dlgTitle"></dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const DATA = [{"id":"estatua-casal-rosto-deitado","n":"Estátua Casal Rosto Deitado","c":"Acessórios","l":"Ásia","cor":"Areia","m":"0,20 x 0,20/0,65","mat":"","o":"","pg":3},{"id":"estatua-ganesh-c-base","n":"Estátua Ganesh c/ Base","c":"Acessórios","l":"Ásia","cor":"Areia","m":"0,30 x 0,30 /1,15","mat":"","o":"","pg":3},{"id":"estatua-cego-surdo-mudo","n":"Estátua Cego/Surdo/Mudo","c":"Acessórios","l":"Ásia","cor":"Areia","m":"0,30 x 0,30 / 1,00","mat":"","o":"","pg":3},{"id":"estatua-budha-c-base","n":"Estátua Budha c/ Base","c":"Acessórios","l":"Ásia","cor":"Areia","m":"0,55 x 0,45/1,20","mat":"","o":"","pg":3},{"id":"conjunto-cestos-snake-sn-0","n":"Conjunto Cestos Snake SN-0","c":"Acessórios","l":"Ásia","cor":"Palha","m":"0,35 x 0,45","mat":"","o":"","pg":3},{"id":"luminaria-bl-180","n":"Luminária BL-180","c":"Acessórios","l":"Ásia","cor":"Marrom","m":"1,80","mat":"","o":"","pg":3},{"id":"rede-em-bambu-thai","n":"Rede em Bambu/Thai","c":"Acessórios","l":"Ásia","cor":"Marrom","m":"2,87 x 0,80","mat":"","o":"","pg":3},{"id":"gaveteiro-luca-ra-1855","n":"Gaveteiro Luca RA-1855","c":"Acessórios","l":"Ásia","cor":"Marrom","m":"0,89 x 0,55 x 1,82","mat":"","o":"","pg":4},{"id":"biombo-teka-bl-01","n":"Biombo Teka BL-01","c":"Acessórios","l":"Ásia","cor":"Marrom","m":"2,00 x 2,00","mat":"","o":"","pg":4},{"id":"biombo-pescara-ra-2416","n":"Biombo Pescara RA-2416","c":"Acessórios","l":"Ásia","cor":"Marrom","m":"2,40 x 1,60","mat":"","o":"","pg":4},{"id":"doceira-aparador-bar-mk-2090","n":"Doceira/Aparador/Bar MK-2090","c":"Acessórios","l":"Clássica","cor":"Madeira","m":"2,00 x 0,90 x 1,00","mat":"","o":"","pg":5},{"id":"estante-jb-1524","n":"Estante JB-1524","c":"Acessórios","l":"Básica","cor":"Marrom","m":"1,50 x 2,40 x 0,50","mat":"","o":"","pg":5},{"id":"comoda-bombe","n":"Cômoda Bombe","c":"Acessórios","l":"Clássica","cor":"Madeira","m":"0,97 x 0,50 x 0,84","mat":"","o":"","pg":5},{"id":"estante-ts-2011","n":"Estante TS-2011","c":"Acessórios","l":"Gramado","cor":"Madeira","m":"1,00 x 0,40 x 2,00","mat":"","o":"","pg":6},{"id":"estante-ml-2014","n":"Estante ML-2014","c":"Acessórios","l":"Gramado","cor":"Madeira","m":"2,00 x 3,25 x 0,60","mat":"","o":"","pg":6},{"id":"gazebo","n":"Gazebo","c":"Acessórios","l":"Gramado","cor":"Marrom","m":"2,50L x 2,15A","mat":"","o":"","pg":6},{"id":"aparador-liso-lc-101","n":"Aparador Liso LC-101","c":"Aparadores","l":"Ásia","cor":"Madeira","m":"2,00 x 0,50 x 0,80","mat":"","o":"","pg":8},{"id":"aparador-jb-1860","n":"Aparador JB-1860","c":"Aparadores","l":"Básica","cor":"","m":"1,80 x 0,60","mat":"","o":"","pg":8},{"id":"aparador-mk-1850","n":"Aparador MK-1850","c":"Aparadores","l":"Brut","cor":"Madeira","m":"1,80 x 0,50 x 0,70","mat":"","o":"","pg":8},{"id":"aparador-cleopatra-lc-1111","n":"Aparador Cleópatra LC-1111","c":"Aparadores","l":"Ásia","cor":"Madeira","m":"2,10 x 0,60 x 0,85","mat":"","o":"","pg":8},{"id":"aparador-sf-1545","n":"Aparador SF 1545","c":"Aparadores","l":"Clássica","cor":"Madeira","m":"1,50 x 0,85 x 0,45","mat":"","o":"","pg":9},{"id":"aparador-espelho-bit-2050e","n":"Aparador Espelho BIT-2050E","c":"Aparadores","l":"Espelho","cor":"Espelhado","m":"2,00 x 0,50 x 0,70","mat":"","o":"","pg":9},{"id":"aparador-e-bar","n":"Aparador e Bar","c":"Aparadores","l":"Bordô","cor":"Madeira","m":"2,00 x 0,60","mat":"Madeira e Ferro","o":"","pg":9},{"id":"aparador-mb-2050","n":"Aparador MB-2050","c":"Aparadores","l":"Gramado","cor":"Madeira","m":"2,00 x 0,70 x 0,50","mat":"","o":"","pg":9},{"id":"banco-cerimonia","n":"Banco Cerimônia","c":"Bancos","l":"Ásia","cor":"Madeira","m":"1,80 x 0,35 x 0,48","mat":"","o":"","pg":11},{"id":"garden-seat","n":"Garden Seat","c":"Bancos","l":"Gramado","cor":"Amarelo, Vermelho, Preto e Cinza","m":"0,41 x 0,54 x 0,41","mat":"","o":"","pg":11},{"id":"banco-teka-macico-bl-2535","n":"Banco Teka Maciço BL 2535","c":"Bancos","l":"Ásia","cor":"Madeira","m":"2,50 x 0,35 x 0,38","mat":"","o":"","pg":11},{"id":"mesa-banco-mk-1440","n":"Mesa Banco MK-1440","c":"Bancos","l":"Brut","cor":"Madeira","m":"1,40 x 0,40 x 0,45","mat":"","o":"","pg":11},{"id":"banco-luis-xv-1442","n":"Banco Luis XV 1442","c":"Bancos","l":"Clássica","cor":"Areia","m":"1,42 x 0,42 x 0,50","mat":"","o":"","pg":12},{"id":"banco-luis-xv-1448","n":"Banco Luis XV 1448","c":"Bancos","l":"Clássica","cor":"Areia","m":"1,40 x 0,48 x 0,54","mat":"","o":"","pg":12},{"id":"banco-retangular-palha-zh-1259","n":"Banco Retangular Palha ZH 1259","c":"Bancos","l":"Clássica","cor":"Palha","m":"1,20 x 0,60 x 0,40","mat":"","o":"","pg":12},{"id":"banco-kilim","n":"Banco Kilim","c":"Bancos","l":"Clássica","cor":"","m":"1,22 x 0,42 x 0,41","mat":"","o":"","pg":12},{"id":"garden-seat-ceramica-celadon","n":"Garden Seat Cerâmica Celadon","c":"Bancos","l":"Clássica","cor":"","m":"0,30 x 0,45","mat":"","o":"","pg":12},{"id":"garden-seat-ceramica-celadon-sangue-de-boi","n":"Garden Seat Cerâmica Celadon Sangue de Boi","c":"Bancos","l":"Clássica","cor":"","m":"0,30 x 0,45","mat":"","o":"","pg":12},{"id":"cadeira-bar-mb-01","n":"Cadeira Bar MB-01","c":"Bancos de Bar","l":"Gramado","cor":"Madeira","m":"0,40 x 0,40 x 1,10","mat":"","o":"","pg":14},{"id":"banqueta-mocca-104352","n":"Banqueta Mocca - 104352","c":"Bancos de Bar","l":"Clássica","cor":"Madeira","m":"1,050 x 0,43 x 0,52","mat":"","o":"","pg":14},{"id":"banqueta-bistro-mk-3535","n":"Banqueta Bistrô MK-3535","c":"Bancos de Bar","l":"Bordô","cor":"Madeira","m":"0,35 x 0,35 x 0,75","mat":"","o":"","pg":14},{"id":"cadeira-jantar-bar-bit-015","n":"Cadeira Jantar/Bar BIT-015","c":"Bancos de Bar","l":"Pure","cor":"Preta","m":"0,38 x 0,35 x 0,73","mat":"","o":"","pg":14},{"id":"cadeira-jantar-bar-bit-015-2","n":"Cadeira Jantar/Bar BIT-015","c":"Bancos de Bar","l":"Pure","cor":"Branco","m":"0,38 x 0,35 x 0,73","mat":"","o":"","pg":14},{"id":"cadeira-jantar-bar-bit-015m","n":"Cadeira Jantar/Bar BIT-015M","c":"Bancos de Bar","l":"Pure","cor":"","m":"0,38 x 0,35 x 0,73","mat":"","o":"","pg":14},{"id":"banqueta-bistro-db-4040","n":"Banqueta Bistrô DB-4040","c":"Bancos de Bar","l":"Pure","cor":"Café","m":"0,40 x 0,40 x 0,94","mat":"","o":"","pg":14},{"id":"cadeira-jantar-bar-linho-bt-015l","n":"Cadeira Jantar/ Bar Linho BT-015L","c":"Bancos de Bar","l":"Pure","cor":"Bege","m":"0,40 x 0,40 x 0,94","mat":"","o":"","pg":14},{"id":"bar-bit-palha","n":"Bar BIT-Palha","c":"Bar","l":"Ásia","cor":"","m":"1,80 x 0,90 x 0,55","mat":"Palha","o":"","pg":16},{"id":"bar-forrado-s-vidro-jb-1550","n":"Bar Forrado s/ Vidro JB-1550","c":"Bar","l":"Básica","cor":"","m":"1,50 x 0,50","mat":"","o":"","pg":16},{"id":"bar-meia-lua-em-aco","n":"Bar Meia Lua em Aço","c":"Bar","l":"Clássica","cor":"Ferrugem","m":"1,27 x 0,70 x 0,92","mat":"","o":"Tampo forrado com cor a definir","pg":17},{"id":"bar-reto-em-aco","n":"Bar Reto em Aço","c":"Bar","l":"Clássica","cor":"Ferrugem","m":"1,50 x 0,70 x 0,92","mat":"","o":"Tampo forrado com cor a definir","pg":17},{"id":"bar-ripado-po-1850","n":"Bar Ripado PO-1850","c":"Bar","l":"Gramado","cor":"Madeira","m":"1,84 x 0,54 x 0,95","mat":"","o":"","pg":17},{"id":"bar-curvo-ripado-po-181050","n":"Bar Curvo Ripado PO-181050","c":"Bar","l":"Gramado","cor":"Madeira","m":"","mat":"","o":"","pg":17},{"id":"bar-meia-lua-mb-155","n":"Bar Meia Lua MB-155","c":"Bar","l":"Gramado","cor":"Madeira","m":"2,10 x 0,55 x 1,10","mat":"","o":"","pg":17},{"id":"bar-mb-1855","n":"Bar MB-1855","c":"Bar","l":"Gramado","cor":"Madeira","m":"1,80 x 0,55 x 0,90","mat":"","o":"","pg":17},{"id":"bar-reto-cm-1450","n":"Bar Reto CM-1450","c":"Bar","l":"Pure","cor":"Linho Bege","m":"1,40 x 0,50 x 1,00","mat":"","o":"","pg":18},{"id":"bar-meia-lua-cm-1210-capitonado","n":"Bar Meia Lua CM-1210 Capitonado","c":"Bar","l":"Pure","cor":"Veludo Caramelo","m":"1,20 x 1,00","mat":"","o":"","pg":18},{"id":"bar-reto-cm-1450-2","n":"Bar Reto CM-1450","c":"Bar","l":"Pure","cor":"Oxford Preto","m":"1,40 x 0,50 x 1,00","mat":"","o":"","pg":18},{"id":"bar-bit-1855-com-forracao","n":"Bar BIT-1855 com Forração","c":"Bar","l":"Pure","cor":"","m":"1,80 x 0,55 x 0,90","mat":"","o":"Medida de um módulo de bar","pg":18},{"id":"bar-meia-lua-cm-1210","n":"Bar Meia Lua CM-1210","c":"Bar","l":"Pure","cor":"Linho Bege","m":"1,20 x 1,00","mat":"","o":"","pg":18},{"id":"bar-bit-1855b","n":"Bar BIT-1855B","c":"Bar","l":"Pure","cor":"Preto","m":"1,80 x 0,55 x 0,90","mat":"","o":"","pg":18},{"id":"bar-meia-lua-cm-1210-2","n":"Bar Meia Lua CM-1210","c":"Bar","l":"Pure","cor":"Oxford Preto","m":"1,20 x 1,00","mat":"","o":"","pg":18},{"id":"bar-reto-cm-1450-capitonado","n":"Bar Reto CM-1450 Capitonado","c":"Bar","l":"Pure","cor":"Veludo Caramelo","m":"1,40 x 0,50 x 1,00","mat":"","o":"","pg":18},{"id":"mesa-jantar-buffet-padua-ra-291288","n":"Mesa Jantar/Buffet Paduá RA-291288","c":"Buffet","l":"Ásia","cor":"Madeira","m":"0,78 x 1,22 a 0,88 x 2,97","mat":"","o":"","pg":20},{"id":"mesa-jantar-buffet-lc-3011","n":"Mesa Jantar/Buffet LC-3011","c":"Buffet","l":"Ásia","cor":"Madeira","m":"3,00 x 1,10","mat":"","o":"","pg":20},{"id":"mesa-jantar-buffet-bl-4125","n":"Mesa Jantar/Buffet BL-4125","c":"Buffet","l":"Ásia","cor":"Madeira","m":"4,00 x 1,25","mat":"","o":"","pg":20},{"id":"mesa-jantar-buffet-bl-3115","n":"Mesa Jantar/Buffet BL-3115","c":"Buffet","l":"Ásia","cor":"Madeira","m":"3,00 x 1,15","mat":"","o":"","pg":20},{"id":"base-buffet-rosto-deitado-c-vidro","n":"Base Buffet Rosto Deitado c/ Vidro","c":"Buffet","l":"Ásia","cor":"Areia","m":"2,00 x 0,90","mat":"","o":"","pg":20},{"id":"buffet-padrao-mc-2590","n":"Buffet Padrão MC-2590","c":"Buffet","l":"Básica","cor":"","m":"2,50 x 0,90","mat":"","o":"","pg":21},{"id":"buffet-padrao-mc-2080","n":"Buffet Padrão MC-2080","c":"Buffet","l":"Básica","cor":"","m":"2,00 x 0,80","mat":"","o":"","pg":21},{"id":"mesa-jantar-buffet-mk-4012-com-pes-cavalete","n":"Mesa Jantar Buffet MK-4012 com Pés Cavalete","c":"Buffet","l":"Brut","cor":"Madeira","m":"4,00 x 1,20 x 0,76","mat":"","o":"","pg":21},{"id":"mesa-jantar-buffet-ln-2010","n":"Mesa Jantar /Buffet LN-2010","c":"Buffet","l":"Brut","cor":"Madeira","m":"2 x 1 x 0,75M","mat":"","o":"","pg":21},{"id":"mesa-jantar-buffet-ln-2010-2","n":"Mesa Jantar/Buffet LN-2010","c":"Buffet","l":"Brut","cor":"Madeira","m":"2,00 x 1,00 x 0,75","mat":"","o":"","pg":21},{"id":"mesa-inglesa-redonda-cm-220","n":"Mesa Inglesa Redonda CM-220","c":"Buffet","l":"Clássica","cor":"Madeira","m":"2,20","mat":"","o":"","pg":22},{"id":"mesa-jantar-buffet-retangular-extensivel","n":"Mesa Jantar/Buffet Retangular Extensível","c":"Buffet","l":"Clássica","cor":"Madeira","m":"3 m, 4 m ou 5 m x 1,20","mat":"","o":"","pg":22},{"id":"mesa-jantar-buffet-forrada-bit-2125","n":"Mesa Jantar/Buffet Forrada BIT-2125","c":"Buffet","l":"Pure","cor":"Branco","m":"2,00 x 1,25","mat":"","o":"","pg":22},{"id":"mesa-jantar-buffet-oval-extensivel","n":"Mesa Jantar/Buffet Oval Extensível","c":"Buffet","l":"Clássica","cor":"Madeira","m":"3 m, 4 m ou 5 m x 1,20","mat":"","o":"","pg":22},{"id":"mesa-jantar-buffet-mb-2010","n":"Mesa Jantar/Buffet MB-2010","c":"Buffet","l":"Gramado","cor":"Madeira","m":"2,00 x 1,10 x 0,75","mat":"","o":"","pg":23},{"id":"mesa-jantar-buffet-mb-3011","n":"Mesa Jantar Buffet MB-3011","c":"Buffet","l":"Gramado","cor":"Madeira","m":"3,00 x 1,10 x 0,75","mat":"","o":"","pg":23},{"id":"buffet-tampo-espelhado-pes-l-espelhado-bit-2090e","n":"Buffet Tampo Espelhado Pés L Espelhado BIT-2090E","c":"Buffet","l":"Espelho","cor":"Espelhado","m":"2,00 x 0,90","mat":"","o":"","pg":23},{"id":"mesa-jantar-buffet-mb-2000","n":"Mesa Jantar Buffet MB-2000","c":"Buffet","l":"Gramado","cor":"Madeira","m":"2,00 x 0,75","mat":"","o":"","pg":23},{"id":"buffet-tampo-dourado-trapezio-mc-2090t","n":"Buffet Tampo Dourado Trapézio MC-2090T","c":"Buffet","l":"Gramado","cor":"Ouro Velho","m":"2,00 x 0,90","mat":"","o":"","pg":23},{"id":"mesa-jantar-buffet-espelho-pes-em-l-2130e","n":"Mesa Jantar/Buffet Espelho Pés em \"L\" 2130E","c":"Buffet","l":"Espelho","cor":"Espelhado","m":"2,18 x 1,30","mat":"","o":"","pg":23},{"id":"buffet-retangular-tampo-dourado-pes-l-madeira-mc-2090m","n":"Buffet Retangular Tampo Dourado Pés L Madeira MC-2090M","c":"Buffet","l":"Gramado","cor":"Ouro Velho","m":"2,00 x 0,90","mat":"","o":"","pg":23},{"id":"cadeira-agung","n":"Cadeira Agung","c":"Cadeiras","l":"Ásia","cor":"Castanho Claro","m":"0,44 x 0,45 x 0,89","mat":"","o":"","pg":25},{"id":"cadeira-tm-vime","n":"Cadeira TM Vime","c":"Cadeiras","l":"Ásia","cor":"Natural","m":"0,80 x 0,62","mat":"","o":"","pg":25},{"id":"cadeira-dior","n":"Cadeira Dior","c":"Cadeiras","l":"Clássica","cor":"Madeira","m":"","mat":"","o":"","pg":25},{"id":"cadeira-x","n":"Cadeira X","c":"Cadeiras","l":"Ásia","cor":"Azul","m":"0,40 x 0,40 x 0,90","mat":"","o":"","pg":25},{"id":"cadeira-x-2","n":"Cadeira X","c":"Cadeiras","l":"Ásia","cor":"Madeira","m":"0,40 x 0,40 x 0,90","mat":"","o":"","pg":25},{"id":"cadeira-x-3","n":"Cadeira X","c":"Cadeiras","l":"Ásia","cor":"Verde","m":"0,40 x 0,40 x 0,90","mat":"","o":"","pg":25},{"id":"cadeira-paris-mahogany","n":"Cadeira Paris Mahogany","c":"Cadeiras","l":"Pure","cor":"Marrom","m":"0,40 x 0,40 x 0,90","mat":"","o":"","pg":26},{"id":"cadeira-paris-ouro-velho","n":"Cadeira Paris Ouro Velho","c":"Cadeiras","l":"Pure","cor":"Ouro Velho","m":"0,40 x 0,40 x 0,90","mat":"","o":"","pg":26},{"id":"cadeira-paris-black","n":"Cadeira Paris Black","c":"Cadeiras","l":"Pure","cor":"Preto","m":"0,40 x 0,40 x 0,90","mat":"","o":"","pg":26},{"id":"cadeira-paris","n":"Cadeira Paris","c":"Cadeiras","l":"Pure","cor":"Branco","m":"0,40 x 0,40 x 0,90","mat":"","o":"","pg":26},{"id":"conjunto-keranjankan-lf-414","n":"Conjunto Keranjankan LF-414","c":"Conjuntos","l":"Ásia","cor":"Madeira","m":"","mat":"","o":"","pg":28},{"id":"conjunto-pure","n":"Conjunto Pure","c":"Conjuntos","l":"Pure","cor":"Branco","m":"3,25 x 4,90","mat":"","o":"","pg":28},{"id":"mesa-bar-mb-060","n":"Mesa Bar MB-060","c":"Mesas Altas e Bistrôs","l":"Gramado","cor":"Madeira","m":"0,60 x 1,10","mat":"","o":"","pg":30},{"id":"bistro-mocca","n":"Bistrô Mocca","c":"Mesas Altas e Bistrôs","l":"Clássica","cor":"Madeira","m":"1,00 x 0,70","mat":"","o":"","pg":30},{"id":"mesa-drink-venezia-marrom-cmd-060","n":"Mesa Drink Venezia Marrom CMD 060","c":"Mesas Altas e Bistrôs","l":"Clássica","cor":"Marrom","m":"0,60 x 1,10","mat":"","o":"","pg":30},{"id":"mesa-bistro-alta-mk-5050","n":"Mesa Bistrô Alta MK-5050","c":"Mesas Altas e Bistrôs","l":"Bordô","cor":"Madeira","m":"0,55 x 0,55 x 1,05","mat":"","o":"","pg":30},{"id":"mesa-alta-comunitaria-mk-2280","n":"Mesa Alta Comunitária MK-2280","c":"Mesas Altas e Bistrôs","l":"Bordô","cor":"Madeira","m":"2,20 x 0,80 x 1,05","mat":"","o":"","pg":30},{"id":"modulo-de-estante-po-1050","n":"Módulo de Estante PO-1050","c":"Mesas Altas e Bistrôs","l":"Brut","cor":"","m":"","mat":"","o":"","pg":31},{"id":"mesa-centro-siena-ra-1859","n":"Mesa Centro Siena RA 1859","c":"Mesas de Centro","l":"Ásia","cor":"Madeira","m":"44,5 x 59,5 x 188 cm","mat":"","o":"","pg":33},{"id":"mesa-centro-opium-c-vidro-lf-180a","n":"Mesa Centro Opium c/ Vidro LF-180A","c":"Mesas de Centro","l":"Ásia","cor":"Madeira","m":"1,25 x 0,75 x 0,35","mat":"","o":"","pg":33},{"id":"mesa-centro-opium-lf-181","n":"Mesa Centro Opium LF-181","c":"Mesas de Centro","l":"Ásia","cor":"Madeira","m":"1,00 x 1,00 x 0,35","mat":"","o":"","pg":33},{"id":"mesa-centro-opium-ii-bl-1570","n":"Mesa Centro Opium II BL-1570","c":"Mesas de Centro","l":"Ásia","cor":"Madeira","m":"1,50 x 0,70 x 0,35","mat":"","o":"","pg":33},{"id":"mesa-centro-batur-bl-1612","n":"Mesa Centro Batur BL 1612","c":"Mesas de Centro","l":"Ásia","cor":"","m":"","mat":"","o":"","pg":33},{"id":"mesa-centro-tabanan-bl-2190","n":"Mesa Centro Tabanan BL-2190","c":"Mesas de Centro","l":"Ásia","cor":"Madeira","m":"2,15 x 0,90 x 0,50","mat":"","o":"","pg":33},{"id":"mesa-centro-opium-lc-1470","n":"Mesa Centro Opium LC 1470","c":"Mesas de Centro","l":"Ásia","cor":"Madeira","m":"1,40 x 0,70 x 0,35","mat":"","o":"","pg":33},{"id":"mesa-centro-orquidea-bl-215013","n":"Mesa Centro Orquídea BL 215013","c":"Mesas de Centro","l":"Ásia","cor":"","m":"","mat":"","o":"","pg":33},{"id":"mesa-centro-redondo-de-rottan-2041","n":"Mesa Centro Redondo de Rottan 2041","c":"Mesas de Centro","l":"Ásia","cor":"Natural","m":"0,70 x 0,37","mat":"","o":"","pg":34},{"id":"mesa-redonda-sea-grass-1055b","n":"Mesa Redonda Sea Grass 1055B","c":"Mesas de Centro","l":"Ásia","cor":"Natural","m":"0,97 x 0,40","mat":"","o":"","pg":34},{"id":"mesa-centro-quadrada-opium-ii-bl-1010","n":"Mesa Centro Quadrada Opium II BL-1010","c":"Mesas de Centro","l":"Ásia","cor":"Madeira","m":"1,00 x 1,00 x 0,35","mat":"","o":"","pg":34},{"id":"mesa-centro-redonda-skin-rottan-5263","n":"Mesa Centro Redonda Skin Rottan 5263","c":"Mesas de Centro","l":"Ásia","cor":"","m":"0,63 x 0,40","mat":"","o":"","pg":34},{"id":"mesa-redonda-tm-180","n":"Mesa Redonda TM-180","c":"Mesas de Centro","l":"Ásia","cor":"Madeira","m":"1,00 x 0,80","mat":"","o":"","pg":34},{"id":"mesa-centro-skin-rottan-5481","n":"Mesa Centro Skin Rottan 5481","c":"Mesas de Centro","l":"Ásia","cor":"Natural","m":"0,90 x 0,90 x 0,44","mat":"","o":"","pg":34},{"id":"mesa-centro-maite","n":"Mesa Centro Maitê","c":"Mesas de Centro","l":"Clássica","cor":"Madeira","m":"0,28.5 x 1,30","mat":"","o":"","pg":35},{"id":"mesa-centro-foglia","n":"Mesa Centro Foglia","c":"Mesas de Centro","l":"Clássica","cor":"Madeira","m":"1,20 x 0,70 x 0,36 / 1,20 x 0,70 x 0,31","mat":"","o":"","pg":35},{"id":"mesa-de-centro-cmc-1490","n":"Mesa de Centro CMC 1490","c":"Mesas de Centro","l":"Clássica","cor":"","m":"1,40 x 0,90","mat":"","o":"","pg":35},{"id":"mesa-centro-sphera","n":"Mesa Centro Sphera","c":"Mesas de Centro","l":"Clássica","cor":"Madeira","m":"32,5 x 0,90 e 23,5 x 0,90","mat":"","o":"","pg":35},{"id":"mesa-centro-wave-metal","n":"Mesa Centro Wave Metal","c":"Mesas de Centro","l":"Clássica","cor":"Madeira","m":"0,35 x 1,00 e 0,32 x 0,70","mat":"","o":"","pg":35},{"id":"mesa-centro-metal-cl-1490","n":"Mesa Centro Metal CL 1490","c":"Mesas de Centro","l":"Clássica","cor":"Ouro","m":"1,40 x 0,90","mat":"","o":"","pg":35},{"id":"mesa-centro-gota","n":"Mesa Centro Gota","c":"Mesas de Centro","l":"Clássica","cor":"","m":"1,50 x 0,8","mat":"Madeira","o":"","pg":35},{"id":"mesa-centro-ouro-velho-cl1470","n":"Mesa Centro Ouro Velho CL1470","c":"Mesas de Centro","l":"Clássica","cor":"Ouro Velho","m":"1,40 x 0,70","mat":"","o":"","pg":35},{"id":"mesa-centro-retangular-espelho-bit-1386","n":"Mesa Centro Retangular Espelho BIT-1386","c":"Mesas de Centro","l":"Espelho","cor":"Espelhado","m":"1,30 x 0,86 x 0,44","mat":"","o":"","pg":36},{"id":"mesa-centro-quadrada-mb-1212","n":"Mesa Centro Quadrada MB-1212","c":"Mesas de Centro","l":"Gramado","cor":"Madeira","m":"1,20 x 1,20 x 0,45","mat":"","o":"","pg":36},{"id":"mesa-centro-bandeja-mb-1050","n":"Mesa Centro Bandeja MB-1050","c":"Mesas de Centro","l":"Gramado","cor":"Madeira","m":"1,00 x 0,50 x 0,45","mat":"","o":"","pg":36},{"id":"mesa-centro-aquario-mb-1480","n":"Mesa Centro Aquário MB-1480","c":"Mesas de Centro","l":"Gramado","cor":"Madeira","m":"1,40 x 0,80 x 0,45","mat":"","o":"","pg":36},{"id":"mesa-centro-retangular-mb-1370","n":"Mesa Centro Retangular MB-1370","c":"Mesas de Centro","l":"Gramado","cor":"Madeira","m":"1,30 x 0,70 x 0,45","mat":"","o":"","pg":36},{"id":"mesa-banco-mk-1440-2","n":"Mesa Banco MK-1440","c":"Mesas de Centro","l":"Brut","cor":"Madeira","m":"1,40 x 0,40 x 0,45","mat":"","o":"","pg":37},{"id":"mesa-centro-mk-1480","n":"Mesa Centro MK-1480","c":"Mesas de Centro","l":"Brut","cor":"Madeira","m":"1,40 x 0,80 x 0,40","mat":"","o":"","pg":37},{"id":"mesa-centro-ar-120","n":"Mesa Centro AR-120","c":"Mesas de Centro","l":"Brut","cor":"Ferrugem","m":"1,20 x 0,35","mat":"","o":"","pg":37},{"id":"mesa-centro-mk-1212","n":"Mesa Centro MK-1212","c":"Mesas de Centro","l":"Brut","cor":"Madeira","m":"1,20 x 1,20 x 0,40","mat":"","o":"","pg":37},{"id":"buffet-padrao-mc-2590-2","n":"Buffet Padrão MC-2590","c":"Mesas de Jantar","l":"Básica","cor":"","m":"2,50 x 0,90","mat":"Compensado","o":"","pg":39},{"id":"mesa-jantar-buffet-lc-3011-2","n":"Mesa Jantar/Buffet LC-3011","c":"Mesas de Jantar","l":"Ásia","cor":"Madeira","m":"3,00 x 1,10","mat":"","o":"","pg":39},{"id":"buffet-padrao-mc-2080-2","n":"Buffet Padrão MC-2080","c":"Mesas de Jantar","l":"Básica","cor":"","m":"2,00 x 0,80","mat":"Compensado","o":"","pg":39},{"id":"mesa-quadrada-bl-1414","n":"Mesa Quadrada BL-1414","c":"Mesas de Jantar","l":"Ásia","cor":"Madeira","m":"1,40 x 1,40 x 0,80","mat":"","o":"","pg":39},{"id":"mesa-redonda-bl-145","n":"Mesa Redonda BL-145","c":"Mesas de Jantar","l":"Ásia","cor":"Madeira","m":"1,45 Ø x 0,79","mat":"","o":"","pg":39},{"id":"buffet-redonda-padrao-mc-120","n":"Buffet Redonda Padrão MC-120","c":"Mesas de Jantar","l":"Básica","cor":"","m":"1,20","mat":"Compensado","o":"","pg":39},{"id":"buffet-redonda-padrao-mc-145","n":"Buffet Redonda Padrão MC-145","c":"Mesas de Jantar","l":"Básica","cor":"","m":"1,45","mat":"Compensado","o":"","pg":39},{"id":"mesa-jantar-buffet-bl-3115-2","n":"Mesa Jantar/Buffet BL-3115","c":"Mesas de Jantar","l":"Ásia","cor":"Madeira","m":"3,00 x 1,15","mat":"","o":"","pg":39},{"id":"mesa-jantar-buffet-bl-4125-2","n":"Mesa Jantar/Buffet BL-4125","c":"Mesas de Jantar","l":"Ásia","cor":"Madeira","m":"4,00 x 1,25","mat":"","o":"","pg":39},{"id":"mesa-jantar-buffet-canggu-bl-4010","n":"Mesa Jantar Buffet Canggu BL 4010","c":"Mesas de Jantar","l":"Ásia","cor":"","m":"","mat":"","o":"","pg":40},{"id":"mesa-gilis-bl-1715","n":"Mesa Gilis BL 1715","c":"Mesas de Jantar","l":"Ásia","cor":"","m":"","mat":"","o":"","pg":40},{"id":"mesa-jantar-buffet-nusa-dua-p-bl-3095","n":"Mesa Jantar Buffet Nusa Dua P BL 3095","c":"Mesas de Jantar","l":"Ásia","cor":"","m":"","mat":"","o":"","pg":40},{"id":"mesa-jantar-buffet-padang-bl-3010","n":"Mesa Jantar Buffet Padang BL 3010","c":"Mesas de Jantar","l":"Ásia","cor":"","m":"","mat":"","o":"","pg":40},{"id":"mesa-jantar-buffet-uluwatu-bl-3915","n":"Mesa Jantar Buffet Uluwatu BL 3915","c":"Mesas de Jantar","l":"Ásia","cor":"","m":"","mat":"","o":"","pg":40},{"id":"mesa-jantar-buffet-tarakan-bl-401013","n":"Mesa Jantar Buffet Tarakan BL 401013","c":"Mesas de Jantar","l":"Ásia","cor":"","m":"","mat":"","o":"","pg":40},{"id":"mesa-jantar-buffet-tanah-lot-bl-4811","n":"Mesa Jantar Buffet Tanah Lot BL 4811","c":"Mesas de Jantar","l":"Ásia","cor":"","m":"","mat":"","o":"","pg":40},{"id":"mesa-jantar-buffet-ubud-bl1700","n":"Mesa Jantar Buffet Ubud BL1700","c":"Mesas de Jantar","l":"Ásia","cor":"","m":"","mat":"","o":"","pg":40},{"id":"mesa-jantar-buffet-mk","n":"Mesa Jantar Buffet MK","c":"Mesas de Jantar","l":"Brut","cor":"","m":"","mat":"","o":"","pg":41},{"id":"mesa-jantar-buffet-mk-4012","n":"Mesa Jantar Buffet MK-4012","c":"Mesas de Jantar","l":"Brut","cor":"Madeira","m":"4,00 x 1,20 x 0,76","mat":"","o":"","pg":41},{"id":"mesa-inglesa-redonda-cm-220-2","n":"Mesa Inglesa Redonda CM-220","c":"Mesas de Jantar","l":"Clássica","cor":"Madeira","m":"2,20","mat":"","o":"","pg":42},{"id":"mesa-redonda-cm-145","n":"Mesa Redonda CM-145","c":"Mesas de Jantar","l":"Clássica","cor":"Ferrugem","m":"1,45 x 0,75","mat":"","o":"","pg":42},{"id":"mesa-jantar-buffet-oval-extensivel-2","n":"Mesa Jantar/Buffet Oval Extensível","c":"Mesas de Jantar","l":"Clássica","cor":"Madeira","m":"3 m, 4 m ou 5 m x 1,20","mat":"","o":"","pg":42},{"id":"mesa-jantar-buffet-retangular-extensivel-2","n":"Mesa Jantar/Buffet Retangular Extensível","c":"Mesas de Jantar","l":"Clássica","cor":"Madeira","m":"3 m, 4 m ou 5 m x 1,20","mat":"","o":"","pg":43},{"id":"mesa-jantar-quadrada-cl-1414-caramelo","n":"Mesa Jantar Quadrada CL 1414 Caramelo","c":"Mesas de Jantar","l":"Clássica","cor":"Caramelo","m":"1,40 x 1,40","mat":"","o":"","pg":43},{"id":"mesa-jantar-quadrada-cl-1414-cafe","n":"Mesa Jantar Quadrada CL 1414 Café","c":"Mesas de Jantar","l":"Clássica","cor":"Café","m":"1,40 x 1,40","mat":"","o":"","pg":43},{"id":"mesa-redonda-tampo-espelhado-pes-l-espelhados-bit-1451e","n":"Mesa Redonda Tampo Espelhado Pés L Espelhados BIT-1451E","c":"Mesas de Jantar","l":"Espelho","cor":"Espelhado","m":"1,45","mat":"","o":"","pg":44},{"id":"mesa-quadrada-tampo-espelhado-pes-l-espelhado-bit-1313e","n":"Mesa Quadrada Tampo Espelhado Pés L Espelhado BIT-1313E","c":"Mesas de Jantar","l":"Espelho","cor":"Espelhado","m":"1,30 x 1,30","mat":"","o":"","pg":44},{"id":"mesa-redonda-espelho-pes-l-bit-145","n":"Mesa Redonda Espelho Pés \"L\" BIT-145","c":"Mesas de Jantar","l":"Espelho","cor":"Espelhado","m":"1,45 Ø x 0,75","mat":"","o":"","pg":44},{"id":"mesa-quadrada-espelho-pes-l-bit-1313e","n":"Mesa Quadrada Espelho Pés \"L\" BIT-1313E","c":"Mesas de Jantar","l":"Espelho","cor":"Espelhado","m":"1,30 x 1,30 x 0,75","mat":"","o":"","pg":44},{"id":"mesa-jantar-buffet-espelho-pes-em-l-2130e-2","n":"Mesa Jantar/Buffet Espelho Pés em \"L\" 2130E","c":"Mesas de Jantar","l":"Espelho","cor":"Espelhado","m":"2,18 x 1,30","mat":"","o":"","pg":44},{"id":"buffet-tampo-espelhado-pes-l-espelhado-bit-2090e-2","n":"Buffet Tampo Espelhado Pés L Espelhado BIT-2090E","c":"Mesas de Jantar","l":"Espelho","cor":"Espelhado","m":"2,00 x 0,90","mat":"","o":"","pg":44},{"id":"mesa-quadrada-tampo-dourado-trapezio-mc-1313t","n":"Mesa Quadrada Tampo Dourado Trapézio MC-1313T","c":"Mesas de Jantar","l":"Gramado","cor":"Ouro Velho","m":"1,30 x 1,30","mat":"","o":"","pg":45},{"id":"mesa-redonda-trapezio-mc-145","n":"Mesa Redonda Trapézio MC-145","c":"Mesas de Jantar","l":"Gramado","cor":"Madeira","m":"1,45","mat":"","o":"","pg":45},{"id":"mesa-redonda-tampo-dourado-pes-l-madeira-mc-145m","n":"Mesa Redonda Tampo Dourado Pés L Madeira MC-145M","c":"Mesas de Jantar","l":"Gramado","cor":"Ouro Velho","m":"1,45","mat":"","o":"","pg":45},{"id":"mesa-quadrada-trapezio-mc-1","n":"Mesa Quadrada Trapézio MC-1","c":"Mesas de Jantar","l":"Gramado","cor":"Madeira","m":"1,30 x 1,30 x 0,75","mat":"","o":"","pg":45},{"id":"buffet-retangular-tampo-dourado-pes-l-madeira-mc-2090m-2","n":"Buffet Retangular Tampo Dourado Pés L Madeira MC-2090M","c":"Mesas de Jantar","l":"Gramado","cor":"Ouro Velho","m":"2,00 x 0,90","mat":"","o":"","pg":45},{"id":"mesa-quadrada-tampo-dourado-pes-l-mc-1313m","n":"Mesa Quadrada Tampo Dourado Pés L MC-1313M","c":"Mesas de Jantar","l":"Gramado","cor":"Ouro Velho","m":"1,30 x 1,30","mat":"","o":"","pg":45},{"id":"mesa-redonda-trapezio-mc-145t","n":"Mesa Redonda Trapézio MC-145T","c":"Mesas de Jantar","l":"Gramado","cor":"Ouro Velho","m":"1,45","mat":"","o":"Tampo dourado","pg":45},{"id":"buffet-tampo-dourado-trapezio-mc-2090t-2","n":"Buffet Tampo Dourado Trapézio MC-2090T","c":"Mesas de Jantar","l":"Gramado","cor":"Ouro Velho","m":"2,00 x 0,90","mat":"","o":"","pg":45},{"id":"mesa-jantar-buffet-mb-3011-2","n":"Mesa Jantar/Buffet MB-3011","c":"Mesas de Jantar","l":"Gramado","cor":"Madeira","m":"3,00 x 1,10 x 0,75","mat":"","o":"","pg":46},{"id":"mesa-jantar-buffet-mb-2010-2","n":"Mesa Jantar/Buffet MB-2010","c":"Mesas de Jantar","l":"Gramado","cor":"Madeira","m":"2,00 x 1,10 x 0,75","mat":"","o":"","pg":46},{"id":"mesa-jantar-buffet-mb-2000-2","n":"Mesa Jantar/Buffet MB-2000","c":"Mesas de Jantar","l":"Gramado","cor":"Madeira","m":"2,00 x 0,75","mat":"","o":"","pg":46},{"id":"mesa-redonda-mb-080","n":"Mesa Redonda MB-080","c":"Mesas de Jantar","l":"Gramado","cor":"Madeira","m":"0,80 x 0,70","mat":"","o":"","pg":46},{"id":"mesa-jantar-buffet-pes-ripado-po-2010","n":"Mesa Jantar/Buffet Pés Ripado PO-2010","c":"Mesas de Jantar","l":"Gramado","cor":"","m":"","mat":"","o":"","pg":47},{"id":"mesa-redonda-pes-ripado-po-145","n":"Mesa Redonda Pés Ripado PO-145","c":"Mesas de Jantar","l":"Gramado","cor":"","m":"","mat":"","o":"","pg":47},{"id":"mesa-bolo-espelho-bit-120e","n":"Mesa Bolo Espelho BIT-120E","c":"Mesas de Doces e Bolos","l":"Espelho","cor":"Espelhado","m":"","mat":"","o":"Tampo 1,20","pg":49},{"id":"mesa-bolo-bit-110-c-rodas","n":"Mesa Bolo BIT-110 c/ Rodas","c":"Mesas de Doces e Bolos","l":"Pure","cor":"Branco","m":"1,10","mat":"","o":"","pg":49},{"id":"mesa-bolo-cm-120","n":"Mesa Bolo CM-120","c":"Mesas de Doces e Bolos","l":"Clássica","cor":"Madeira","m":"1,20","mat":"","o":"","pg":49},{"id":"mesa-bolo-bit-9090-c-rodas","n":"Mesa Bolo BIT-9090 c/ Rodas","c":"Mesas de Doces e Bolos","l":"Pure","cor":"Branco","m":"0,90 x 0,90","mat":"","o":"","pg":49},{"id":"mesa-bolo-madeira-mb-110","n":"Mesa Bolo Madeira MB-110","c":"Mesas de Doces e Bolos","l":"Gramado","cor":"Madeira","m":"1,10","mat":"","o":"","pg":49},{"id":"mesa-redonda-parma-ra-100","n":"Mesa Redonda Parma RA-100","c":"Mesas Laterais e Apoio","l":"Ásia","cor":"Madeira","m":"1 x 0,78","mat":"","o":"","pg":51},{"id":"mesa-lateral-quadrada-bl-6060","n":"Mesa Lateral Quadrada BL-6060","c":"Mesas Laterais e Apoio","l":"Ásia","cor":"Madeira","m":"0,60 x 0,60 x 0,60","mat":"","o":"","pg":51},{"id":"mesa-lateral-redonda-bl-060","n":"Mesa Lateral Redonda BL-060","c":"Mesas Laterais e Apoio","l":"Ásia","cor":"Madeira","m":"0,60 x 0,60","mat":"","o":"","pg":51},{"id":"mesa-redonda-tm-180-2","n":"Mesa Redonda TM-180","c":"Mesas Laterais e Apoio","l":"Ásia","cor":"Madeira","m":"1,00 x 0,80","mat":"","o":"","pg":51},{"id":"mesa-redonda-tm-vime","n":"Mesa Redonda TM Vime","c":"Mesas Laterais e Apoio","l":"Ásia","cor":"Natural","m":"0,90 x 0,72 (temos tampo de 1,10)","mat":"","o":"","pg":51},{"id":"mesa-lateral-mk-6060","n":"Mesa Lateral MK-6060","c":"Mesas Laterais e Apoio","l":"Brut","cor":"Madeira","m":"0,60 x 0,60 x 0,50","mat":"","o":"","pg":51},{"id":"mesa-lateral-trapezio-mk-080","n":"Mesa Lateral Trapézio MK 080","c":"Mesas Laterais e Apoio","l":"Brut","cor":"","m":"","mat":"","o":"","pg":51},{"id":"mesa-lateral-ar-060","n":"Mesa Lateral AR-060","c":"Mesas Laterais e Apoio","l":"Brut","cor":"","m":"","mat":"","o":"","pg":51},{"id":"garden-seat-mk-040","n":"Garden Seat MK-040","c":"Mesas Laterais e Apoio","l":"Brut","cor":"Madeira","m":"0,60 x 0,60 x 0,50","mat":"","o":"","pg":51},{"id":"mesa-lateral-ma-050","n":"Mesa Lateral MA-050","c":"Mesas Laterais e Apoio","l":"Clássica","cor":"Ouro Velho","m":"0,50 x 0,60","mat":"","o":"","pg":52},{"id":"mesa-lateral-redonda-az-060","n":"Mesa Lateral Redonda AZ-060","c":"Mesas Laterais e Apoio","l":"Clássica","cor":"Madeira","m":"0,60 x 0,60","mat":"","o":"","pg":52},{"id":"mesa-lateral-metal-cl-5959","n":"Mesa Lateral Metal CL 5959","c":"Mesas Laterais e Apoio","l":"Clássica","cor":"Ouro","m":"0,60 x 0,60","mat":"","o":"","pg":52},{"id":"mesa-lateral-ouro-velho-cl-6060","n":"Mesa Lateral Ouro Velho CL-6060","c":"Mesas Laterais e Apoio","l":"Clássica","cor":"Ouro","m":"","mat":"","o":"","pg":52},{"id":"mesa-lateral-majestic","n":"Mesa Lateral Majestic","c":"Mesas Laterais e Apoio","l":"Clássica","cor":"Transparente","m":"0,56 x 0,66","mat":"","o":"","pg":52},{"id":"mesa-tamborete-forrada-tc-060","n":"Mesa Tamborete Forrada TC-060","c":"Mesas Laterais e Apoio","l":"Clássica","cor":"A definir","m":"0,60 x 0,70 / 0,60 x 0,90 / 0,60 x 1,10","mat":"","o":"Opções de tamanho","pg":52},{"id":"mesa-lateral-venezia-marrom-cml-060","n":"Mesa Lateral Venezia Marrom CML 060","c":"Mesas Laterais e Apoio","l":"Clássica","cor":"Marrom","m":"0,60 x 0,75","mat":"","o":"","pg":52},{"id":"mesa-lateral-spir-6658","n":"Mesa Lateral Spir 6658","c":"Mesas Laterais e Apoio","l":"Clássica","cor":"","m":"","mat":"","o":"","pg":52},{"id":"poltrona-rattan-5265","n":"Poltrona Rattan 5265","c":"Poltronas","l":"Ásia","cor":"Natural","m":"0,57 x 0,59","mat":"","o":"","pg":54},{"id":"poltrona-skin-rottan-5264","n":"Poltrona Skin Rottan 5264","c":"Poltronas","l":"Ásia","cor":"Natural","m":"0,90 x 0,90 x 0,40","mat":"","o":"","pg":54},{"id":"poltrona-cross-back-garden-lf-037","n":"Poltrona Cross Back Garden LF-037","c":"Poltronas","l":"Ásia","cor":"Madeira","m":"0,60 x 0,50 x 0,90","mat":"","o":"","pg":54},{"id":"poltrona-sea-grass-2350","n":"Poltrona Sea Grass 2350","c":"Poltronas","l":"Ásia","cor":"Natural","m":"0,84 x 0,70 x 0,52","mat":"","o":"","pg":54},{"id":"poltrona-fibra-trancada-3895","n":"Poltrona Fibra Trançada 3895","c":"Poltronas","l":"Ásia","cor":"Natural","m":"0,80 x 0,80 x 0,45","mat":"","o":"","pg":54},{"id":"poltrona-caracol-lc-6585","n":"Poltrona Caracol LC-6585","c":"Poltronas","l":"Ásia","cor":"Madeira","m":"0,65 x 0,85","mat":"","o":"","pg":54},{"id":"poltrona-berlim","n":"Poltrona Berlim","c":"Poltronas","l":"Brut","cor":"Caramelo","m":"0,88 x 0,82 x 0,76","mat":"","o":"","pg":55},{"id":"poltrona-sintra","n":"Poltrona Sintra","c":"Poltronas","l":"Brut","cor":"","m":"","mat":"","o":"","pg":55},{"id":"poltrona-estoril","n":"Poltrona Estoril","c":"Poltronas","l":"Brut","cor":"","m":"","mat":"","o":"","pg":55},{"id":"poltrona-munique","n":"Poltrona Munique","c":"Poltronas","l":"Brut","cor":"","m":"","mat":"","o":"","pg":55},{"id":"poltrona-turim","n":"Poltrona Turim","c":"Poltronas","l":"Brut","cor":"Madeira","m":"0,70 x 0,71 x 0,84","mat":"","o":"","pg":55},{"id":"poltrona-santorini","n":"Poltrona Santorini","c":"Poltronas","l":"Brut","cor":"","m":"1,05 x 1,18 x 1,00","mat":"Palha","o":"","pg":55},{"id":"poltrona-mademoiselle","n":"Poltrona Mademoiselle","c":"Poltronas","l":"Clássica","cor":"Cinza","m":"0,72 x 0,85 x 0,92","mat":"","o":"","pg":56},{"id":"poltrona-galliano","n":"Poltrona Galliano","c":"Poltronas","l":"Clássica","cor":"Ouro Velho","m":"","mat":"","o":"","pg":57},{"id":"poltrona-galliano-cafe","n":"Poltrona Galliano Café","c":"Poltronas","l":"Clássica","cor":"Café","m":"","mat":"","o":"","pg":57},{"id":"poltrona-boss","n":"Poltrona Boss","c":"Poltronas","l":"Clássica","cor":"Madeira","m":"0,67 x 1,02 x 0,73","mat":"","o":"","pg":57},{"id":"poltrona-atenas","n":"Poltrona Atenas","c":"Poltronas","l":"Clássica","cor":"Madeira","m":"0,68 x 0,62 x 0,94","mat":"","o":"","pg":57},{"id":"poltrona-mykonos","n":"Poltrona Mykonos","c":"Poltronas","l":"Clássica","cor":"Cru","m":"0,68 x 0,62 x 0,94","mat":"","o":"","pg":57},{"id":"poltrona-elisa","n":"Poltrona Elisa","c":"Poltronas","l":"Clássica","cor":"","m":"0,87 x 0,80 x 0,70","mat":"","o":"","pg":58},{"id":"poltrona-palma","n":"Poltrona Palma","c":"Poltronas","l":"Clássica","cor":"","m":"0,70 x 0,64 x 0,72","mat":"","o":"","pg":58},{"id":"poltrona-jazz","n":"Poltrona Jazz","c":"Poltronas","l":"Clássica","cor":"","m":"0,70 x 0,71 x 0,80","mat":"","o":"","pg":58},{"id":"poltrona-sb-8060","n":"Poltrona SB 8060","c":"Poltronas","l":"Gramado","cor":"Marrom","m":"0,83 x 0,60 x 0,90","mat":"","o":"","pg":59},{"id":"poltrona-antonella","n":"Poltrona Antonella","c":"Poltronas","l":"Gramado","cor":"Marrom","m":"0,88 x 0,84 x 0,65","mat":"Couro","o":"","pg":59},{"id":"poltrona-s-braco-kd-540-capa-azul-carbono","n":"Poltrona s/ Braço KD-540 Capa Azul Carbono","c":"Poltronas","l":"Pure","cor":"Azul Carbono","m":"0,72 x 0,90","mat":"","o":"","pg":60},{"id":"poltrona-s-braco-kd-540-capa-preta","n":"Poltrona s/ Braço KD-540 Capa Preta","c":"Poltronas","l":"Pure","cor":"Preto","m":"0,72 x 0,90","mat":"","o":"","pg":60},{"id":"poltrona-s-braco-kd-540-capa-branca","n":"Poltrona s/ Braço KD-540 Capa Branca","c":"Poltronas","l":"Pure","cor":"Branco","m":"0,72 x 0,90","mat":"","o":"","pg":60},{"id":"poltrona-s-braco-kd-540-capa-suede","n":"Poltrona s/ Braço KD-540 Capa Suede","c":"Poltronas","l":"Pure","cor":"Fendi","m":"0,72 x 0,90","mat":"","o":"","pg":60},{"id":"poltrona-mc-80","n":"Poltrona MC-80","c":"Poltronas","l":"Pure","cor":"Branco","m":"0,80 x 0,80","mat":"","o":"","pg":60},{"id":"poltrona-barcelona","n":"Poltrona Barcelona","c":"Poltronas","l":"Pure","cor":"Caramelo","m":"0,90","mat":"","o":"","pg":60},{"id":"poltrona-colli","n":"Poltrona Colli","c":"Poltronas","l":"Pure","cor":"","m":"0,78 x 0,73 x 0,73","mat":"","o":"","pg":61},{"id":"portal-imperio","n":"Portal Império","c":"Portais","l":"Ásia","cor":"Madeira","m":"4,55 x 2,80","mat":"","o":"","pg":63},{"id":"portal-chateau","n":"Portal Chateau","c":"Portais","l":"Ásia","cor":"Madeira","m":"3,25 x 3,25","mat":"","o":"","pg":63},{"id":"pufe-em-fibras-variadas-5149","n":"Pufe em Fibras Variadas 5149","c":"Pufes","l":"Ásia","cor":"Natural","m":"0,52 x 0,52","mat":"","o":"","pg":65},{"id":"pufe-mesa-sea-grass-retangular-5051","n":"Pufe/Mesa Sea Grass Retangular 5051","c":"Pufes","l":"Ásia","cor":"Natural","m":"1,00 x 0,50 x 0,43","mat":"","o":"","pg":65},{"id":"pufe-mesa-skin-rattan-retangular-5459","n":"Pufe/Mesa Skin Rattan Retangular 5459","c":"Pufes","l":"Ásia","cor":"Natural","m":"1,00 x 0,50 x 0,43","mat":"","o":"","pg":65},{"id":"pufe-em-fibras-variadas-5148","n":"Pufe em Fibras Variadas 5148","c":"Pufes","l":"Ásia","cor":"Natural","m":"0,45 x 0,45","mat":"","o":"","pg":65},{"id":"mesa-centro-redonda-skin-rottan-5263-2","n":"Mesa Centro Redonda Skin Rottan 5263","c":"Pufes","l":"Ásia","cor":"Natural","m":"0,63 x 0,40","mat":"","o":"","pg":65},{"id":"puff-capitone-cm-100","n":"Puff Capitoné CM-100","c":"Pufes","l":"Clássica","cor":"Bege","m":"1,00","mat":"Linhão","o":"","pg":66},{"id":"pufe-retangular-kd-1680-c-capa-suede","n":"Pufe Retangular KD-1680 c/ Capa Suede","c":"Pufes","l":"Pure","cor":"Fendi","m":"1,60 x 0,80","mat":"","o":"","pg":66},{"id":"pufe-retangular-kd-1680-c-capa-preta","n":"Pufe Retangular KD-1680 c/ Capa Preta","c":"Pufes","l":"Pure","cor":"Preto","m":"1,60 x 0,80","mat":"","o":"","pg":66},{"id":"pufe-capri","n":"Pufe Capri","c":"Pufes","l":"Clássica","cor":"Cinza","m":"0,60 x 0,40 x 0,40","mat":"","o":"","pg":66},{"id":"pufe-quadrado-kd-080-c-capa-suede","n":"Pufe Quadrado KD-080 c/ Capa Suede","c":"Pufes","l":"Pure","cor":"Fendi","m":"0,80 x 0,80","mat":"","o":"","pg":66},{"id":"pufe-capitone-zh-1260","n":"Pufe Capitoné ZH 1260","c":"Pufes","l":"Clássica","cor":"Cinza","m":"1,20 x 0,60 x 0,45","mat":"","o":"","pg":66},{"id":"pufe-quadrado-kd-080-c-capa-preta","n":"Pufe Quadrado KD-080 c/ Capa Preta","c":"Pufes","l":"Pure","cor":"Preto","m":"0,80 x 0,80","mat":"","o":"","pg":66},{"id":"puff-capri-marfim","n":"Puff Capri Marfim","c":"Pufes","l":"Clássica","cor":"Branco","m":"","mat":"","o":"","pg":66},{"id":"pufe-redondo-kd-040-c-capa-preta","n":"Pufe Redondo KD-040 c/ Capa Preta","c":"Pufes","l":"Pure","cor":"Preto","m":"0,40","mat":"","o":"","pg":67},{"id":"pufe-quadrado-kd-4040-capa-preta","n":"Pufe Quadrado KD-4040 Capa Preta","c":"Pufes","l":"Pure","cor":"Preto","m":"0,40 x 0,40","mat":"","o":"","pg":67},{"id":"pufe-redondo-kd-120-capa-preta","n":"Pufe Redondo KD-120 Capa Preta","c":"Pufes","l":"Pure","cor":"Preto","m":"1,20","mat":"","o":"","pg":67},{"id":"pufe-quadrado-kd-4040-capa-branca","n":"Pufe Quadrado KD-4040 Capa Branca","c":"Pufes","l":"Pure","cor":"Branco","m":"0,40 x 0,40","mat":"","o":"","pg":67},{"id":"pufe-redondo-kd-040-c-capa-branca","n":"Pufe Redondo KD-040 c/ Capa Branca","c":"Pufes","l":"Pure","cor":"Branco","m":"0,40","mat":"","o":"","pg":67},{"id":"sofa-cross-back-garden-150-lf-067","n":"Sofá Cross Back Garden 150 LF-067","c":"Sofás","l":"Ásia","cor":"Madeira","m":"1,50 x 0,50 x 0,90","mat":"","o":"","pg":69},{"id":"sofa-monaco-lc-1585","n":"Sofá Mônaco LC-1585","c":"Sofás","l":"Ásia","cor":"Madeira","m":"1,50 x 0,85","mat":"","o":"","pg":69},{"id":"sofa-cross-back-garden-180-lf-067","n":"Sofá Cross Back Garden 180 LF-067","c":"Sofás","l":"Ásia","cor":"Madeira","m":"1,80 x 0,50 x 0,90","mat":"","o":"","pg":69},{"id":"sofa-java-lc-7075","n":"Sofá Java LC-7075","c":"Sofás","l":"Ásia","cor":"Madeira","m":"1,70 x 0,75","mat":"","o":"","pg":69},{"id":"sofa-imperador-lc-2016","n":"Sofá Imperador LC-2016","c":"Sofás","l":"Ásia","cor":"Madeira","m":"2,00 x 1,60 (tamanho do assento)","mat":"","o":"","pg":70},{"id":"sofa-spring-tm-1570","n":"Sofá Spring TM-1570","c":"Sofás","l":"Ásia","cor":"Madeira","m":"1,50 x 0,70","mat":"","o":"","pg":70},{"id":"sofa-safari","n":"Sofá Safari","c":"Sofás","l":"Ásia","cor":"Madeira","m":"1,80 x 0,72 x 0,47","mat":"","o":"","pg":70},{"id":"sofa-sanur-bl-1470","n":"Sofá Sanur BL-1470","c":"Sofás","l":"Ásia","cor":"Madeira","m":"1,40 x 0,70","mat":"","o":"","pg":70},{"id":"sofa-jacarta-bl-1758","n":"Sofá Jacarta BL-1758","c":"Sofás","l":"Ásia","cor":"Madeira","m":"1,75 x 0,80","mat":"","o":"","pg":71},{"id":"sofa-madura-tm-210","n":"Sofá Madura TM-210","c":"Sofás","l":"Ásia","cor":"Madeira","m":"2,00 x 1,00","mat":"","o":"","pg":71},{"id":"sofa-lenong-ii-bl-02","n":"Sofá Lenong II BL-02","c":"Sofás","l":"Ásia","cor":"Madeira","m":"0,80 x 0,40","mat":"","o":"","pg":71},{"id":"sofa-lenong-i-bl-01","n":"Sofá Lenong I BL-01","c":"Sofás","l":"Ásia","cor":"Madeira","m":"0,36 x 0,36","mat":"","o":"","pg":71},{"id":"sofa-sb-1850","n":"Sofá SB 1850","c":"Sofás","l":"Gramado","cor":"Madeira","m":"1,85 x 0,60 x 0,90","mat":"","o":"","pg":72},{"id":"sofa-kiev","n":"Sofá Kiev","c":"Sofás","l":"Gramado","cor":"Marrom","m":"2,20 x 0,84 x 1,00","mat":"Couro","o":"","pg":72},{"id":"sofa-bell-2090","n":"Sofá Bell 2090","c":"Sofás","l":"Clássica","cor":"Areia","m":"2,00 x 0,90 x 0,75","mat":"","o":"","pg":73},{"id":"sofa-pisa","n":"Sofá Pisa","c":"Sofás","l":"Clássica","cor":"Branco","m":"2,50 x 1,30 x 0,90","mat":"","o":"","pg":73},{"id":"sofa-bell-2790","n":"Sofá Bell 2790","c":"Sofás","l":"Clássica","cor":"Areia","m":"2,70 x 0,90 x 0,75","mat":"","o":"","pg":73},{"id":"sofa-creta","n":"Sofá Creta","c":"Sofás","l":"Clássica","cor":"","m":"2,50 x 1,00 x 0,90","mat":"","o":"","pg":74},{"id":"sofa-psara","n":"Sofá Psara","c":"Sofás","l":"Clássica","cor":"","m":"2,70 x 0,94 x 0,81","mat":"","o":"","pg":74},{"id":"sofa-join-3-lugares","n":"Sofá Join 3 Lugares","c":"Sofás","l":"Clássica","cor":"","m":"5,00 x 1,25","mat":"","o":"","pg":74},{"id":"sofa-kd-540-2-lugares-capa-azul-carbono","n":"Sofá KD-540 (2 lugares) Capa Azul Carbono","c":"Sofás","l":"Pure","cor":"","m":"1,80 x 0,90","mat":"","o":"","pg":75},{"id":"sofa-kd-540-3-lugares-capa-azul-carbono","n":"Sofá KD-540 (3 lugares) Capa Azul Carbono","c":"Sofás","l":"Pure","cor":"","m":"2,52 x 0,90","mat":"","o":"","pg":75},{"id":"sofa-kd-540-2-lugares-capa-suede","n":"Sofá KD-540 (2 lugares) Capa Suede","c":"Sofás","l":"Pure","cor":"Fendi","m":"1,80 x 0,90","mat":"","o":"","pg":75},{"id":"sofa-kd-540-3-lugares-capa-suede","n":"Sofá KD-540 (3 lugares) Capa Suede","c":"Sofás","l":"Pure","cor":"Fendi","m":"2,52 x 0,90","mat":"","o":"","pg":75},{"id":"sofa-mc-1680-com-forracao","n":"Sofá MC-1680 com Forração","c":"Sofás","l":"Pure","cor":"","m":"1,60 x 0,90","mat":"","o":"Sofás forrados deverão ser solicitados com 30 dias de antecedência","pg":76},{"id":"sofa-kd-540-2-lugares","n":"Sofá KD-540 (2 lugares)","c":"Sofás","l":"Pure","cor":"Branco","m":"1,80 x 0,90","mat":"","o":"","pg":76},{"id":"sofa-bari-linho-bege-2-lugares","n":"Sofá Bari Linho Bege (2 lugares)","c":"Sofás","l":"Pure","cor":"Bege","m":"2,20 x 0,80","mat":"","o":"","pg":77},{"id":"sofa-bari-linho-bege-3-lugares","n":"Sofá Bari Linho Bege (3 lugares)","c":"Sofás","l":"Pure","cor":"Bege","m":"3,30 x 0,80","mat":"","o":"","pg":77},{"id":"sofa-bari-com-capa-oxford-preta-2-lugares","n":"Sofá Bari com Capa Oxford Preta (2 lugares)","c":"Sofás","l":"Pure","cor":"Preto","m":"2,20 x 0,80","mat":"","o":"","pg":77},{"id":"sofa-bari-com-capa-oxford-preta-3-lugares","n":"Sofá Bari com Capa Oxford Preta (3 lugares)","c":"Sofás","l":"Pure","cor":"Preto","m":"3,30 x 0,80","mat":"","o":"","pg":77},{"id":"sofa-kd-540-2-lugares-2","n":"Sofá KD-540 (2 lugares)","c":"Sofás","l":"Pure","cor":"Preto","m":"1,80 x 0,90","mat":"","o":"","pg":78},{"id":"sofa-kd-540b-4-lugares-c-capa-preta","n":"Sofá KD-540B (4 lugares) c/ Capa Preta","c":"Sofás","l":"Pure","cor":"Preto","m":"3,24 x 0,90","mat":"","o":"","pg":78},{"id":"sofa-kd-540b-3-lugares-c-capa-preta","n":"Sofá KD-540B (3 lugares) c/ Capa Preta","c":"Sofás","l":"Pure","cor":"Preto","m":"2,52 x 0,90","mat":"","o":"","pg":78}];
+const CAT_ORDER = ["Acessórios", "Aparadores", "Bancos", "Bancos de Bar", "Bar", "Buffet", "Cadeiras", "Conjuntos", "Mesas Altas e Bistrôs", "Mesas de Centro", "Mesas de Jantar", "Mesas de Doces e Bolos", "Mesas Laterais e Apoio", "Poltronas", "Portais", "Pufes", "Sofás"];
+const LINHAS = ["Ásia","Básica","Brut","Bordô","Clássica","Espelho","Gramado","Pure"];
+
+/* ---------- utilidades ---------- */
+const $ = s => document.querySelector(s);
+const norm = s => (s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+const esc = s => (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const slug = s => norm(s).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const SYN = {puff:"pufe",puffs:"pufe",pufes:"pufe",sofas:"sofa",cadeiras:"cadeira",mesas:"mesa",poltronas:"poltrona",bancos:"banco",banquetas:"banqueta",bares:"bar",
+  rattan:"rottan",rotan:"rottan",espelhada:"espelhado",espelho:"espelh",redondo:"redond",redonda:"redond",quadrado:"quadrad",quadrada:"quadrad",retangular:"retangul",
+  bolo:"bolo",bolos:"bolo",doces:"doce",lateral:"lateral",laterais:"lateral",apoio:"lateral",preta:"pret",preto:"pret",branca:"branc",branco:"branc",
+  dourada:"dourad",dourado:"dourad",ouro:"ouro",madeira:"madeira",vime:"vime",palha:"palha",bistro:"bistro",alta:"alt",alto:"alt",centro:"centro",jantar:"jantar",
+  lugares:"lugar",lugar:"lugar",estofado:"pure",forrado:"forrad",forrada:"forrad",couro:"couro",capitone:"capitone",biombo:"biombo",estante:"estante",portal:"portal",portais:"portal"};
+const stem = t => SYN[t] || (t.length>4 && t.endsWith("s") ? t.slice(0,-1) : t);
+function lev1(a,b){ // distância de edição <= 1 ?
+  if (Math.abs(a.length-b.length)>1) return false;
+  let i=0,j=0,d=0;
+  while(i<a.length&&j<b.length){ if(a[i]===b[j]){i++;j++;continue} if(++d>1)return false;
+    if(a.length>b.length)i++; else if(b.length>a.length)j++; else{i++;j++} }
+  return d+(a.length-i)+(b.length-j)<=1;
+}
+DATA.forEach((p,i)=>{
+  p.i=i;
+  p.code=(p.n.match(/[A-Z]{1,4}[- ]?\d{2,6}[A-Z]?|\b\d{3,6}\b/g)||[]).join(" ");
+  p.nn=norm(p.n);
+  p.hay=norm([p.n,p.c,"linha "+p.l,p.cor,p.mat,p.m,p.o].join(" "));
+  p.words=[...new Set(p.hay.split(/[^a-z0-9]+/).filter(Boolean))];
+  p.compact=p.hay.replace(/[^a-z0-9]/g,"");
+});
+function score(p,toks){
+  let s=0;
+  for(const raw of toks){
+    const t=stem(raw); let hit=0;
+    if(/\d/.test(raw)){ // código ou medida
+      const c=raw.replace(/[^a-z0-9]/g,"");
+      if(p.compact.includes(c)) hit=p.nn.replace(/[^a-z0-9]/g,"").includes(c)?6:3;
+    } else {
+      for(const w of p.words){
+        if(w===t||w===raw){hit=Math.max(hit,4);break}
+        if(w.startsWith(t)) hit=Math.max(hit,3);
+        else if(t.length>=4 && w.includes(t)) hit=Math.max(hit,2);
+        else if(t.length>=5 && lev1(w,t)) hit=Math.max(hit,1.5);
+      }
+      if(hit && p.nn.includes(t)) hit+=1.5;               // está no nome
+      if(hit && norm(p.c).includes(t)) hit+=1;             // é a categoria
+    }
+    if(!hit) return 0;
+    s+=hit;
+  }
+  return s;
+}
+function search(q){
+  const toks=norm(q).split(/[\s,\/]+/).filter(t=>t&&!["de","da","do","com","c","s","em","e","para","a","o"].includes(t));
+  if(!toks.length) return null;
+  return DATA.map(p=>[p,score(p,toks)]).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]||a[0].i-b[0].i).map(x=>x[0]);
+}
+function hl(text,q){
+  const toks=norm(q).split(/[\s,\/]+/).filter(t=>t.length>1).map(stem);
+  if(!toks.length) return esc(text);
+  const n=norm(text); const marks=new Array(text.length).fill(false);
+  toks.forEach(t=>{let k=n.indexOf(t);while(k>-1){for(let j=k;j<k+t.length;j++)marks[j]=true;k=n.indexOf(t,k+1)}});
+  let out="",on=false;
+  for(let i=0;i<text.length;i++){ if(marks[i]&&!on){out+="<mark>";on=true} if(!marks[i]&&on){out+="</mark>";on=false} out+=esc(text[i]) }
+  return out+(on?"</mark>":"");
+}
+const meta = p => [p.m, p.cor].filter(Boolean).join(", ");
+
+/* ---------- estado ---------- */
+const st={q:"",cat:"",linha:""};
+let sel=[];
+try{ sel=JSON.parse(localStorage.getItem("portal-selecao")||"[]").filter(id=>DATA.some(p=>p.id===id)) }catch(e){}
+const saveSel=()=>{ try{localStorage.setItem("portal-selecao",JSON.stringify(sel))}catch(e){} updSelBtn() };
+function readURL(){
+  const u=new URLSearchParams(location.search);
+  st.q=u.get("q")||""; st.cat=u.get("categoria")||""; st.linha=u.get("linha")||"";
+  if(st.cat && !CAT_ORDER.some(c=>slug(c)===st.cat)) st.cat="";
+  if(st.linha && !LINHAS.some(l=>slug(l)===st.linha)) st.linha="";
+}
+function writeURL(){
+  const u=new URLSearchParams();
+  if(st.q)u.set("q",st.q); if(st.cat)u.set("categoria",st.cat); if(st.linha)u.set("linha",st.linha);
+  const s=u.toString(); history.replaceState(null,"",(s?"?"+s:location.pathname)+location.hash);
+}
+
+/* ---------- categorias ---------- */
+const PIN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18l-6-4-6 4z"/></svg>';
+function renderCats(){
+  const counts={}; DATA.forEach(p=>counts[p.c]=(counts[p.c]||0)+1);
+  $("#cats").innerHTML=`<button class="cat cat--all" type="button" data-cat="" aria-pressed="${!st.cat}"><span class="cat__ph"><img src="img/logo.png" alt=""></span><span class="cat__nm">Todas</span><span class="cat__ct">${DATA.length} peças</span></button>`+
+   CAT_ORDER.map(c=>`<button class="cat" type="button" data-cat="${slug(c)}" aria-pressed="${st.cat===slug(c)}"><span class="cat__ph"><img src="img/cat/${slug(c)}.webp" alt="" loading="lazy" width="720" height="700"></span><span class="cat__nm">${esc(c)}</span><span class="cat__ct">${counts[c]} ${counts[c]>1?"peças":"peça"}</span></button>`).join("");
+}
+function renderLinhas(){
+  $("#linhas").innerHTML=[["","Todas"],...LINHAS.map(l=>[slug(l),l])].map(([v,t])=>`<button class="chip" type="button" data-linha="${v}" aria-pressed="${st.linha===v}">${t}</button>`).join("");
+}
+$("#cats").addEventListener("click",e=>{const b=e.target.closest(".cat"); if(!b)return; st.cat=st.cat===b.dataset.cat?"":b.dataset.cat; update(true)});
+$("#linhas").addEventListener("click",e=>{const b=e.target.closest(".chip"); if(!b)return; st.linha=b.dataset.linha; update(true)});
+
+/* ---------- resultados ---------- */
+function card(p,q){
+  return `<article class="card" data-id="${p.id}" tabindex="0" role="button" aria-label="${esc(p.n)}">
+    <div class="card__ph"><img src="img/p/${p.id}.webp" alt="" loading="lazy" decoding="async" width="640" height="640"></div>
+    <div class="card__b"><span class="card__nm">${hl(p.n,q)}</span>${meta(p)?`<span class="card__mt">${esc(meta(p))}</span>`:""}<span class="card__ln">Linha ${esc(p.l)}</span></div>
+    <button class="pin" type="button" data-pin="${p.id}" aria-pressed="${sel.includes(p.id)}" aria-label="${sel.includes(p.id)?"Remover da":"Adicionar à"} seleção: ${esc(p.n)}">${PIN}</button>
+  </article>`;
+}
+function filtered(){
+  let list=st.q?search(st.q):DATA.slice();
+  if(st.cat) list=list.filter(p=>slug(p.c)===st.cat);
+  if(st.linha) list=list.filter(p=>slug(p.l)===st.linha);
+  return list;
+}
+function render(){
+  const list=filtered(), R=$("#results");
+  const n=list.length;
+  const catName=st.cat?CAT_ORDER.find(c=>slug(c)===st.cat):"";
+  const parts=[]; if(st.q)parts.push(`para “${esc(st.q)}”`); if(catName)parts.push(`em ${esc(catName)}`); if(st.linha)parts.push(`na linha ${esc(LINHAS.find(l=>slug(l)===st.linha))}`);
+  $("#count").innerHTML=`<b>${n}</b> ${n===1?"peça":"peças"} ${parts.join(" ")}`;
+  $("#reset").hidden=!(st.q||st.cat||st.linha);
+  if(!n){
+    const alt=st.q?(search(st.q)||[]):[];
+    R.innerHTML=`<div class="empty"><h2>Nenhuma peça encontrada</h2>
+      <p>${alt.length&&(st.cat||st.linha)?`Há ${alt.length} ${alt.length>1?"resultados":"resultado"} para “${esc(st.q)}” fora dos filtros escolhidos.`:"Tente um termo mais curto, um código (ex.: KD-540) ou uma das buscas abaixo."}</p>
+      <div class="chips">${alt.length&&(st.cat||st.linha)?`<button class="chip" type="button" data-act="clearf">Buscar em todo o catálogo</button>`:["sofá","mesa redonda","pufe","bar","poltrona","cadeira"].map(t=>`<button class="chip" type="button" data-try="${t}">${t}</button>`).join("")}</div></div>`;
+    return;
+  }
+  if(st.q){ R.innerHTML=`<section class="sec"><div class="grid">${list.map(p=>card(p,st.q)).join("")}</div></section>`; return; }
+  const groups={}; list.forEach(p=>(groups[p.c]=groups[p.c]||[]).push(p));
+  R.innerHTML=CAT_ORDER.filter(c=>groups[c]).map(c=>`<section class="sec" id="cat-${slug(c)}" aria-labelledby="h-${slug(c)}"><h2 class="sec__h" id="h-${slug(c)}">${esc(c)} <small>${groups[c].length}</small></h2><div class="grid">${groups[c].map(p=>card(p,"")).join("")}</div></section>`).join("");
+}
+function update(scroll){
+  renderCats(); renderLinhas(); render(); writeURL();
+  if(scroll){ const t=$(".filters").getBoundingClientRect().top+scrollY-90; if(scrollY>t) scrollTo({top:t,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}) }
+}
+$("#reset").addEventListener("click",()=>{st.q="";st.cat="";st.linha="";$("#q").value="";syncClear();update(true)});
+$("#results").addEventListener("click",e=>{
+  const pin=e.target.closest("[data-pin]"); if(pin){e.stopPropagation();toggleSel(pin.dataset.pin);return}
+  const tr=e.target.closest("[data-try]"); if(tr){$("#q").value=tr.dataset.try;st.q=tr.dataset.try;syncClear();update(true);return}
+  if(e.target.closest("[data-act=clearf]")){st.cat="";st.linha="";update(true);return}
+  const c=e.target.closest(".card"); if(c) openProduct(c.dataset.id);
+});
+$("#results").addEventListener("keydown",e=>{ if((e.key==="Enter"||e.key===" ")&&e.target.classList.contains("card")){e.preventDefault();openProduct(e.target.dataset.id)} });
+
+/* ---------- busca com sugestões ---------- */
+const q=$("#q"), sugg=$("#sugg"); let active=-1, items=[], tmr;
+function syncClear(){ $("#search").classList.toggle("has-v",!!q.value) }
+function closeSugg(){ sugg.classList.remove("open"); q.setAttribute("aria-expanded","false"); active=-1 }
+function showSugg(){
+  const v=q.value.trim(); if(!v){closeSugg();return}
+  const res=search(v)||[];
+  const cats=CAT_ORDER.filter(c=>norm(c).includes(norm(v))||norm(c).split(" ").some(w=>w.startsWith(stem(norm(v)))));
+  items=[];
+  let h="";
+  if(cats.length){ h+=`<div class="sugg__h">Categorias</div>`+cats.slice(0,3).map(c=>{items.push({cat:slug(c)});return `<div class="sugg__i" role="option" id="s${items.length-1}" data-k="${items.length-1}"><img src="img/cat/${slug(c)}.webp" alt=""><div><div class="nm">${hl(c,v)}</div><div class="mt">Ver categoria</div></div></div>`}).join("") }
+  if(res.length){ h+=`<div class="sugg__h">Peças</div>`+res.slice(0,6).map(p=>{items.push({id:p.id});return `<div class="sugg__i" role="option" id="s${items.length-1}" data-k="${items.length-1}"><img src="img/p/${p.id}.webp" alt=""><div><div class="nm">${hl(p.n,v)}</div><div class="mt">${esc(p.c)}${p.m?", "+esc(p.m):""}</div></div></div>`}).join("");
+    h+=`<button class="sugg__all" type="button" data-all>Ver todos os ${res.length} resultados</button>` }
+  if(!h) h=`<div class="sugg__none">Nada encontrado para “${esc(v)}”. Tente outro termo ou um código.</div>`;
+  sugg.innerHTML=h; sugg.classList.add("open"); q.setAttribute("aria-expanded","true"); active=-1;
+}
+function setActive(k){
+  active=k; sugg.querySelectorAll(".sugg__i").forEach(el=>el.setAttribute("aria-selected",String(+el.dataset.k===k)));
+  const el=$("#s"+k); if(el){el.scrollIntoView({block:"nearest"}); q.setAttribute("aria-activedescendant","s"+k)} else q.removeAttribute("aria-activedescendant");
+}
+function pick(k){
+  const it=items[k]; if(!it)return; closeSugg();
+  if(it.cat){ st.cat=it.cat; st.q=""; q.value=""; syncClear(); update(true) }
+  else openProduct(it.id);
+}
+function commit(){ st.q=q.value.trim(); closeSugg(); update(true); }
+q.addEventListener("input",()=>{ syncClear(); clearTimeout(tmr); tmr=setTimeout(()=>{showSugg(); st.q=q.value.trim(); render(); writeURL()},90) });
+q.addEventListener("focus",()=>{ if(q.value.trim()) showSugg() });
+q.addEventListener("keydown",e=>{
+  if(e.key==="ArrowDown"){e.preventDefault(); if(!sugg.classList.contains("open"))showSugg(); setActive(Math.min(active+1,items.length-1))}
+  else if(e.key==="ArrowUp"){e.preventDefault(); setActive(Math.max(active-1,-1))}
+  else if(e.key==="Enter"){e.preventDefault(); active>-1?pick(active):commit(); q.blur()}
+  else if(e.key==="Escape"){ if(sugg.classList.contains("open")) closeSugg(); else {q.value="";syncClear();st.q="";update()} }
+});
+sugg.addEventListener("mousedown",e=>e.preventDefault());
+sugg.addEventListener("click",e=>{ if(e.target.closest("[data-all]")){commit();q.blur();return} const i=e.target.closest(".sugg__i"); if(i) pick(+i.dataset.k) });
+document.addEventListener("click",e=>{ if(!e.target.closest("#search")) closeSugg() });
+$("#clear").addEventListener("click",()=>{q.value="";syncClear();st.q="";closeSugg();update();q.focus()});
+document.addEventListener("keydown",e=>{ if(e.key==="/"&&!/input|textarea/i.test(document.activeElement.tagName)&&!dlg.open){e.preventDefault();q.focus()} });
+
+/* ---------- modal de produto ---------- */
+const dlg=$("#dlg");
+const X='<button class="x" type="button" data-close aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>';
+const ARR=d=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="${d==="l"?"M15 5l-7 7 7 7":"M9 5l7 7-7 7"}"/></svg>`;
+let ctx=[]; // lista atual para navegar entre peças
+function openProduct(id,keepCtx){
+  const p=DATA.find(x=>x.id===id); if(!p)return;
+  if(!keepCtx){ const l=filtered(); ctx=l.some(x=>x.id===id)?l:DATA }
+  const k=ctx.findIndex(x=>x.id===id), prev=ctx[k-1], next=ctx[k+1];
+  const on=sel.includes(p.id);
+  const rows=[["Medidas",p.m],["Cor",p.cor],["Material",p.mat],["Linha",p.l],["Categoria",p.c]].filter(r=>r[1]);
+  dlg.innerHTML=`${X}<div class="dlg">
+    <div class="dlg__ph"><img src="img/p/${p.id}.webp" alt="${esc(p.n)}" width="640" height="640">
+      ${prev?`<button class="nav-arr l" type="button" data-go="${prev.id}" aria-label="Peça anterior: ${esc(prev.n)}">${ARR("l")}</button>`:""}
+      ${next?`<button class="nav-arr r" type="button" data-go="${next.id}" aria-label="Próxima peça: ${esc(next.n)}">${ARR("r")}</button>`:""}</div>
+    <div class="dlg__b">
+      <span class="dlg__cat">${esc(p.c)}, linha ${esc(p.l)}</span>
+      <h2 id="dlgTitle">${esc(p.n)}</h2>
+      <dl class="specs">${rows.map(r=>`<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join("")}</dl>
+      ${p.o?`<p class="note">${esc(p.o)}</p>`:""}
+      <p class="note">Medidas em metros.${ctx.length>1?` Peça ${k+1} de ${ctx.length}; use as setas do teclado para navegar.`:""}</p>
+      <div class="actions">
+        <button class="btn btn--pri ${on?"on":""}" type="button" data-sel="${p.id}">${PIN}${on?"Na sua seleção":"Adicionar à seleção"}</button>
+        <button class="btn" type="button" data-page="${p.pg}">Ver página do catálogo</button>
+        <button class="btn" type="button" data-share="${p.id}">Compartilhar</button>
+      </div>
+    </div></div>`;
+  if(!dlg.open) dlg.showModal();
+  history.replaceState(null,"",location.pathname+location.search+"#"+p.id);
+}
+function openPage(pg,from){
+  dlg.innerHTML=`${X}<div class="pgv"><div class="pgv__top"><b>Página ${pg} do catálogo original</b>${from?`<button class="btn" type="button" data-back="${from}">Voltar à peça</button>`:""}</div>
+    <div class="pgv__img"><img src="img/pg/${String(pg).padStart(2,"0")}.webp" alt="Página ${pg} do catálogo impresso" width="1400" height="988">
+    ${pg>1?`<button class="nav-arr l" type="button" data-pg="${pg-1}" aria-label="Página anterior">${ARR("l")}</button>`:""}
+    ${pg<79?`<button class="nav-arr r" type="button" data-pg="${pg+1}" aria-label="Próxima página">${ARR("r")}</button>`:""}</div></div>`;
+  dlg.dataset.from=from||"";
+  if(!dlg.open) dlg.showModal();
+}
+function closeDlg(){ dlg.close() }
+dlg.addEventListener("close",()=>history.replaceState(null,"",location.pathname+location.search));
+dlg.addEventListener("click",e=>{
+  if(e.target===dlg){closeDlg();return}
+  const t=e.target.closest("button"); if(!t)return;
+  if(t.dataset.close!==undefined) closeDlg();
+  else if(t.dataset.go) openProduct(t.dataset.go,true);
+  else if(t.dataset.sel){ toggleSel(t.dataset.sel); openProduct(t.dataset.sel,true) }
+  else if(t.dataset.page) openPage(+t.dataset.page, location.hash.slice(1));
+  else if(t.dataset.pg) openPage(+t.dataset.pg, dlg.dataset.from);
+  else if(t.dataset.back) openProduct(t.dataset.back,true);
+  else if(t.dataset.share) share(t.dataset.share);
+  else if(t.dataset.rm){ toggleSel(t.dataset.rm); openSel() }
+  else if(t.dataset.open){ openProduct(t.dataset.open) }
+  else if(t.dataset.copy!==undefined) copyList();
+  else if(t.dataset.clearsel!==undefined){ sel=[]; saveSel(); render(); openSel() }
+});
+dlg.addEventListener("keydown",e=>{
+  if(e.key==="ArrowLeft"||e.key==="ArrowRight"){
+    const b=dlg.querySelector(`.nav-arr.${e.key==="ArrowLeft"?"l":"r"}`); if(b){e.preventDefault();b.click()}
+  }
+});
+async function share(id){
+  const p=DATA.find(x=>x.id===id); const url=location.origin+location.pathname+"#"+id;
+  if(navigator.share){ try{ await navigator.share({title:p.n,text:p.n+(p.m?" ("+p.m+")":""),url}); return }catch(e){ if(e.name==="AbortError")return } }
+  try{ await navigator.clipboard.writeText(url); toast("Link copiado") }catch(e){ prompt("Copie o link:",url) }
+}
+
+/* ---------- seleção ---------- */
+function updSelBtn(){ $("#selN").textContent=sel.length; $("#selBtn").classList.toggle("on",sel.length>0) }
+function toggleSel(id){
+  const on=sel.includes(id); sel=on?sel.filter(x=>x!==id):[...sel,id]; saveSel();
+  document.querySelectorAll(`[data-pin="${id}"]`).forEach(b=>{b.setAttribute("aria-pressed",String(!on))});
+  toast(on?"Removido da seleção":"Adicionado à seleção");
+}
+function listText(){
+  return "Seleção do catálogo Portal:\n\n"+sel.map((id,i)=>{const p=DATA.find(x=>x.id===id);return `${i+1}. ${p.n}${p.m?" ("+p.m+")":""}${p.cor?", cor "+p.cor:""}`}).join("\n");
+}
+function openSel(){
+  const ps=sel.map(id=>DATA.find(x=>x.id===id));
+  dlg.innerHTML=`${X}<div class="selv"><h2 id="dlgTitle">Minha seleção</h2>${ps.length?`
+    <p class="note">Monte a lista das peças que interessam e envie para pedir o orçamento. Ela fica salva neste navegador.</p>
+    <ul>${ps.map(p=>`<li><img src="img/p/${p.id}.webp" alt=""><button type="button" class="t" data-open="${p.id}" style="text-align:left;border-radius:6px"><b>${esc(p.n)}</b><span>${esc(meta(p)||p.c)}</span></button><button type="button" data-rm="${p.id}" aria-label="Remover ${esc(p.n)}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button></li>`).join("")}</ul>
+    <div class="actions"><a class="btn btn--pri" href="https://wa.me/?text=${encodeURIComponent(listText())}" target="_blank" rel="noopener">Enviar pelo WhatsApp</a>
+    <button class="btn" type="button" data-copy>Copiar lista</button><button class="btn" type="button" data-clearsel>Esvaziar</button></div>`
+    :`<p class="note">Sua seleção está vazia. Toque no marcador de qualquer peça para adicioná-la aqui e depois envie a lista para orçamento.</p><div class="actions"><button class="btn btn--pri" type="button" data-close>Ver o catálogo</button></div>`}</div>`;
+  if(!dlg.open) dlg.showModal();
+}
+async function copyList(){ try{ await navigator.clipboard.writeText(listText()); toast("Lista copiada") }catch(e){ prompt("Copie a lista:",listText()) } }
+$("#selBtn").addEventListener("click",openSel);
+let tt; function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove("show"),1800) }
+
+/* ---------- início ---------- */
+readURL(); q.value=st.q; syncClear(); updSelBtn(); update();
+if(matchMedia('(max-width:560px)').matches) q.placeholder='Buscar peça ou código';
+const pc=document.querySelector('.cat[aria-pressed="true"]:not(.cat--all)'); if(pc) pc.scrollIntoView({inline:'center',block:'nearest'});
+if(location.hash.length>1 && DATA.some(p=>p.id===location.hash.slice(1))) openProduct(location.hash.slice(1));
+</script>
+</body>
+</html>
